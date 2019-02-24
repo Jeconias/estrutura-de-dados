@@ -1,7 +1,7 @@
 package Interfaces;
 import Exceptions.*;
 
-public interface InterfacePilha {
+public interface InterfacePilhaLimitada {
 
   public void push(int value) throws PilhaCheiaException;
   public int pop() throws PilhaVaziaException;

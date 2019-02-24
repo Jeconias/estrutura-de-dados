@@ -1,4 +1,4 @@
-import Classes.PilhaDB;
+import Classes.*;
 import Exceptions.*;
 
 public class Main {
@@ -6,7 +6,7 @@ public class Main {
   public static void main (String args[])
   {
 
-    PilhaDB pilha = new PilhaDB(3);
+    PilhaNaoLimitada pilha = new PilhaNaoLimitada(3);
 
     try {
       pilha.push(1);
@@ -19,17 +19,10 @@ public class Main {
 
       System.out.println(pilha.top());
 
-    }catch(PilhaCheiaException | PilhaVaziaException ex)
+    }catch(PilhaVaziaException ex)
     {
       System.out.println(ex);
     }
-
-    
-
-
-
-
-
 
   }
 

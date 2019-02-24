@@ -1,13 +1,13 @@
 package Classes;
-import Interfaces.InterfacePilha;
+import Interfaces.InterfacePilhaLimitada;
 import Exceptions.*;
 
-public class PilhaDB implements InterfacePilha {
+public class PilhaLimitada implements InterfacePilhaLimitada {
 
   int [] dataBase;
   int position;
 
-  public PilhaDB(int size)
+  public PilhaLimitada(int size)
   {
     this.dataBase = new int[size];
     this.position = -1;
@@ -16,7 +16,7 @@ public class PilhaDB implements InterfacePilha {
   public void push(int value) throws PilhaCheiaException 
   {
     if(this.position == (this.dataBase.length - 1))
-    {
+    {      
       throw new PilhaCheiaException("Pilha Cheia");
     }else{
       this.position++;
