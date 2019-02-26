@@ -13,10 +13,10 @@ public class PilhaLimitada implements InterfacePilhaLimitada {
     this.position = -1;
   }
 
-  public void push(int value) throws PilhaCheiaException 
+  public void push(int value) throws PilhaCheiaException
   {
     if(this.position == (this.dataBase.length - 1))
-    {      
+    {
       throw new PilhaCheiaException("Pilha Cheia");
     }else{
       this.position++;
@@ -42,7 +42,7 @@ public class PilhaLimitada implements InterfacePilhaLimitada {
 
   public boolean isEmpty()
   {
-    return this.position == -1 ? true : false; 
+    return this.position == -1 ? true : false;
   }
 
   public int top() throws PilhaVaziaException

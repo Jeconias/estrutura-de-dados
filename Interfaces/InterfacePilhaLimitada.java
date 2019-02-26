@@ -8,5 +8,5 @@ public interface InterfacePilhaLimitada {
   public int top() throws PilhaVaziaException;
   public int size();
   public boolean isEmpty();
-   
+
 }

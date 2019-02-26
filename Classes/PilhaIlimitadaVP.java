@@ -1,13 +1,13 @@
 package Classes;
-import Interfaces.InterfacePilhaNaoLimitada;
+import Interfaces.InterfacePilhaIlimitada;
 import Exceptions.*;
 
-public class PilhaNaoLimitadaVP {
+public class PilhaIlimitadaVP {
 
   int [] dataBase;
   int positionRed, positionBlack;
 
-  public PilhaNaoLimitadaVP(int size)
+  public PilhaIlimitadaVP(int size)
   {
     this.dataBase = new int[size];
     this.positionRed = -1;
@@ -18,9 +18,9 @@ public class PilhaNaoLimitadaVP {
   {
     if(this.positionRed == (this.positionBlack - 1))
     {
-      
+
       int [] dataBaseTemp = new int[this.dataBase.length * 2];
-      int i;
+      int i, aux;
 
       // PASSANDO OS VALORES "VERMELHOS"
       for(i = 0; i < this.dataBase.length; i++)
@@ -28,10 +28,12 @@ public class PilhaNaoLimitadaVP {
         dataBaseTemp[i] = this.dataBase[i];
       }
 
+      aux = (this.dataBase.length * 2) - 1;
       // PASSANDO OS VALORES DO LADO PRETO (DIREITO)
       for(i = (this.dataBase.length - 1); i > this.positionBlack; i--)
       {
-        dataBaseTemp[i] = this.dataBase[i];
+        dataBaseTemp[aux] = this.dataBase[i];
+        aux--;
       }
 
       this.positionRed++;
@@ -49,9 +51,9 @@ public class PilhaNaoLimitadaVP {
   {
     if(this.positionRed == (this.positionBlack - 1))
     {
-      
+
       int [] dataBaseTemp = new int[this.dataBase.length * 2];
-      int i;
+      int i, aux;
 
       // PASSANDO OS VALORES "VERMELHOS"
       for(i = 0; i < this.dataBase.length; i++)
@@ -59,10 +61,12 @@ public class PilhaNaoLimitadaVP {
         dataBaseTemp[i] = this.dataBase[i];
       }
 
+      aux = (this.dataBase.length * 2) - 1;
       // PASSANDO OS VALORES DO LADO PRETO (DIREITO)
       for(i = (this.dataBase.length - 1); i > this.positionBlack; i--)
       {
-        dataBaseTemp[i] = this.dataBase[i];
+        dataBaseTemp[aux] = this.dataBase[i];
+        aux--;
       }
 
       this.positionBlack = ((this.dataBase.length * 2) - (this.dataBase.length - this.positionBlack)) - 1;
@@ -109,12 +113,12 @@ public class PilhaNaoLimitadaVP {
 
   public boolean isEmptyRed()
   {
-    return this.positionRed == -1 ? true : false; 
+    return this.positionRed == -1 ? true : false;
   }
 
   public boolean isEmptyBlack()
   {
-    return this.positionBlack == this.dataBase.length ? true : false; 
+    return this.positionBlack == this.dataBase.length ? true : false;
   }
 
   public int topRed() throws PilhaVaziaException
@@ -136,5 +140,5 @@ public class PilhaNaoLimitadaVP {
       return this.dataBase[this.positionBlack];
     }
   }
-  
+
 }

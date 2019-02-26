@@ -6,23 +6,38 @@ public class Main {
   public static void main (String args[])
   {
 
-    PilhaNaoLimitadaVP pilha = new PilhaNaoLimitadaVP(4);
+    PilhaIlimitada pilha = new PilhaIlimitada(2);
+    PilhaIlimitadaVP pilhaVP = new PilhaIlimitadaVP(4);
 
-    pilha.pushBlack(1);
-    pilha.pushBlack(22);
-    pilha.pushBlack(333);
-    pilha.pushBlack(332);
-    pilha.pushBlack(31);
-    pilha.pushBlack(10103);
+    pilha.push(10);
+    pilha.push(11);
+    pilha.push(4);
 
-    pilha.pushRed(100);
-    pilha.pushRed(200);
+    try {
+      System.out.println(pilha.top());
+      System.out.println(pilha.pop());
+      System.out.println(pilha.size());
+    }catch(PilhaVaziaException ex){
+      System.out.println(ex);
+    }
+
+    System.out.println("##### PILHA VP / Vermelho e Preto #####");
+
+    pilhaVP.pushBlack(1);
+    pilhaVP.pushBlack(22);
+    pilhaVP.pushBlack(333);
+    pilhaVP.pushBlack(332);
+    pilhaVP.pushBlack(31);
+    pilhaVP.pushBlack(10103);
+
+    pilhaVP.pushRed(100);
+    pilhaVP.pushRed(200);
 
     try {
       // Teste
-      System.out.println(pilha.topBlack());
-      System.out.println(pilha.topRed());
-      
+      System.out.println(pilhaVP.topBlack());
+      System.out.println(pilhaVP.topRed());
+
     }catch(PilhaVaziaException ex){
       System.out.println(ex);
     }

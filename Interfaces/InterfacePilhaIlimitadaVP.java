@@ -1,7 +1,7 @@
 package Interfaces;
 import Exceptions.PilhaVaziaException;
 
-public interface InterfacePilhaNaoLimitadaVP {
+public interface InterfacePilhaIlimitadaVP {
 
   public void pushRed(int value);
   public void pushBlack(int value);
@@ -17,5 +17,5 @@ public interface InterfacePilhaNaoLimitadaVP {
 
   public boolean isEmptyRed();
   public boolean isEmptyBlack();
-   
+
 }

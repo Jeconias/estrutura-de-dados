@@ -1,23 +1,23 @@
 package Classes;
-import Interfaces.InterfacePilhaNaoLimitada;
+import Interfaces.InterfacePilhaIlimitada;
 import Exceptions.*;
 
-public class PilhaNaoLimitada implements InterfacePilhaNaoLimitada {
+public class PilhaIlimitada implements InterfacePilhaIlimitada {
 
   int [] dataBase;
   int position;
 
-  public PilhaNaoLimitada(int size)
+  public PilhaIlimitada(int size)
   {
     this.dataBase = new int[size];
     this.position = -1;
   }
 
-  public void push(int value) 
+  public void push(int value)
   {
     if(this.position == (this.dataBase.length - 1))
     {
-      
+
       int [] dataBaseTemp = new int[this.dataBase.length * 2];
       int i;
 
@@ -54,7 +54,7 @@ public class PilhaNaoLimitada implements InterfacePilhaNaoLimitada {
 
   public boolean isEmpty()
   {
-    return this.position == -1 ? true : false; 
+    return this.position == -1 ? true : false;
   }
 
   public int top() throws PilhaVaziaException
