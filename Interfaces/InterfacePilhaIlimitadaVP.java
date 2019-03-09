@@ -1,5 +1,5 @@
-package Interfaces;
-import Exceptions.PilhaVaziaException;
+package interfaces;
+import exceptions.PilhaVaziaException;
 
 public interface InterfacePilhaIlimitadaVP {
 
