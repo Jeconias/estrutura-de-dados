@@ -1,2 +1,2 @@
 # Pilha
- Aplicações de Pilha utilizando arrays
+ Aplicações de Pilha e Fila utilizando arrays e lista ligada simples.
