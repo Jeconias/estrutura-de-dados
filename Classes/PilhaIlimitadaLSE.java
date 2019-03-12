@@ -1,8 +1,8 @@
-package classes;
+package Classes;
 
-import classes.ListaSimplesEncadeada;
-import interfaces.InterfacePilhaIlimitadaLSE;
-import exceptions.PilhaVaziaException;
+import Classes.ListaSimplesEncadeada;
+import Interfaces.InterfacePilhaIlimitadaLSE;
+import Exceptions.PilhaVaziaException;
 
 public class PilhaIlimitadaLSE implements InterfacePilhaIlimitadaLSE  {
 
@@ -15,7 +15,7 @@ public class PilhaIlimitadaLSE implements InterfacePilhaIlimitadaLSE  {
         if(this.first != null){
             // CRIANDO UM NOVO NÓ COM O PROXIMO NULO (ESSE NO SERA O ULTIMO (TOPO) OBJ NA PILHA)
             ListaSimplesEncadeada noTemp = new ListaSimplesEncadeada(value, null);
-            
+
             // SETANDO O noTemp PARA O PRIMEIRO ELEMENTO DO NO
             noTemp.setNext(this.first);
 
@@ -66,7 +66,5 @@ public class PilhaIlimitadaLSE implements InterfacePilhaIlimitadaLSE  {
     {
         return (this.first != null) ? false : true;
     }
-
-
 
 }

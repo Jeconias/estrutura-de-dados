@@ -1,6 +1,6 @@
-package classes;
-import interfaces.InterfacePilhaLimitada;
-import exceptions.*;
+package Classes;
+import Interfaces.InterfacePilhaLimitada;
+import Exceptions.*;
 
 public class PilhaLimitada implements InterfacePilhaLimitada {
 

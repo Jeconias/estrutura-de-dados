@@ -1,5 +1,5 @@
-package interfaces;
-import exceptions.PilhaVaziaException;
+package Interfaces;
+import Exceptions.PilhaVaziaException;
 
 public interface InterfacePilhaIlimitadaLSE {
 
@@ -9,4 +9,4 @@ public interface InterfacePilhaIlimitadaLSE {
     public int size();
     public boolean isEmpty();
 
-} 
+}

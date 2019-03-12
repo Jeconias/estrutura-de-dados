@@ -1,5 +1,5 @@
-package interfaces;
-import exceptions.FilaVaziaException;
+package Interfaces;
+import Exceptions.FilaVaziaException;
 
 public interface InterfaceFilaIlimitada {
 
@@ -8,7 +8,7 @@ public interface InterfaceFilaIlimitada {
     public int inicio();
     public int tamanho();
     public boolean estaVazia();
-    
-    
+
+
 
 }

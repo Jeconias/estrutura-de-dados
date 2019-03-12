@@ -1,7 +1,7 @@
-package classes;
+package Classes;
 
-import interfaces.InterfaceFilaIlimitada;
-import exceptions.*;
+import Interfaces.InterfaceFilaIlimitada;
+import Exceptions.*;
 
 public class FilaIlimitada implements InterfaceFilaIlimitada {
 
@@ -16,12 +16,12 @@ public class FilaIlimitada implements InterfaceFilaIlimitada {
     {
         this.database = new int[2];
     }
- 
+
     public void enfileirar(int value)
-    {   
+    {
         // VERIFICANDO SE O ARRAY ESTA CHEIO
         if(this.tamanho() == (this.database.length - 1)) {
-            
+
             int [] databaseTemp = new int[this.database.length * 2];
             int i, j;
 
@@ -68,7 +68,7 @@ public class FilaIlimitada implements InterfaceFilaIlimitada {
         return this.database[this.inicio];
     }
 
-    public int tamanho()    
+    public int tamanho()
     {
         return (this.database.length - this.inicio + this.fim) % this.database.length;
     }

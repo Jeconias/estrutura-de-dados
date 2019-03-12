@@ -1,5 +1,5 @@
-package interfaces;
-import exceptions.*;
+package Interfaces;
+import Exceptions.*;
 
 public interface InterfacePilhaLimitada {
 

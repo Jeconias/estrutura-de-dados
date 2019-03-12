@@ -1,5 +1,5 @@
-import classes.*;
-import exceptions.*;
+import Classes.*;
+import Exceptions.*;
 
 public class Main {
 
@@ -7,8 +7,8 @@ public class Main {
   {
 
     // FILA
-    FilaIlimitada filaIlimitada = new FilaIlimitada();
-    
+    /*FilaIlimitada filaIlimitada = new FilaIlimitada();
+
 
     try {
       filaIlimitada.enfileirar(114);
@@ -21,11 +21,11 @@ public class Main {
       System.out.println(filaIlimitada.desenfileirar());
       System.out.println(filaIlimitada.desenfileirar());
       System.out.println(filaIlimitada.desenfileirar());
-      
-      
+
+
     } catch (Exception e) {
       System.out.println(e.getMessage());
-    }
+    }*/
 
     // PILHA
     /*PilhaIlimitadaLSE pilhaLSE = new PilhaIlimitadaLSE();
@@ -43,7 +43,18 @@ public class Main {
     } catch (PilhaVaziaException e) {
       System.out.println(e.getMessage());
     }*/
-    
+
+    // FILA COM LL
+    FilaIlimitadaLSE filaLSE = new FilaIlimitadaLSE();
+    filaLSE.enfileirar(1);
+    filaLSE.enfileirar(54);
+    filaLSE.enfileirar(64);
+    try {
+      filaLSE.desenfileirar();
+    } catch(FilaVaziaException e) {
+      System.out.println(e.getMessage());
+    }
+    System.out.println(filaLSE.inicio());
 
 
 
