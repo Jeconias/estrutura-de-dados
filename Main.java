@@ -6,8 +6,30 @@ public class Main {
   public static void main (String args[])
   {
 
-    
-    
+      TADListaDuplamenteEncadeada tadLista = new TADListaDuplamenteEncadeada();
+
+      NoLDE a = tadLista.insertFirst(5);
+      NoLDE b = tadLista.insertLast(616);
+      NoLDE c = tadLista.insertLast(21);
+      NoLDE d = tadLista.insertLast(54);
+      tadLista.remove(d);
+      //tadLista.replaceElement(a, b);
+
+      System.out.println(tadLista.first().getValue());
+      System.out.println(tadLista.last().getValue());
+      //System.out.println(tadLista.isFirst(a));
+      //System.out.println(tadLista.isLast(a));
+
+      System.out.println("---");
+      //tadLista.swapElements(a, b);
+
+      //System.out.println(tadLista.first().getValue());
+      //System.out.println(tadLista.last().getValue());
+      //System.out.println(tadLista.isFirst(b));
+      //System.out.println(tadLista.isLast(b));
+
+
+
 
 
 
