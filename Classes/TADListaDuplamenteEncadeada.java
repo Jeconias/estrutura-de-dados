@@ -53,6 +53,7 @@ public class TADListaDuplamenteEncadeada {
     public NoLDE insertAfter(int n, NoLDE o)
     {
         NoLDE noTemp = new NoLDE(o, o.getAfter(), n);
+        o.getAfter().setBefore(noTemp);
         o.setAfter(noTemp);
         this.size++;
         return noTemp;
@@ -61,6 +62,7 @@ public class TADListaDuplamenteEncadeada {
     public NoLDE insertBefore(int n, NoLDE o)
     {
         NoLDE noTemp = new NoLDE(o.getBefore(), o, n);
+        o.getBefore().setAfter(noTemp);
         o.setBefore(noTemp);
         this.size++;
         return noTemp;
@@ -68,27 +70,14 @@ public class TADListaDuplamenteEncadeada {
 
     public void swapElements(NoLDE n, NoLDE o)
     {
-        NoLDE nBefore = n.getBefore();
-        NoLDE nAfter = n.getAfter();
-
-        n.setAfter(o.getAfter());
-        n.getAfter().setBefore(n);
-        n.setBefore(o.getBefore());
-        n.getBefore().setAfter(n);
-
-        o.setAfter(nAfter);
-        o.setBefore(nBefore);
-        nBefore.setAfter(o);
-        nAfter.setBefore(o);
+        int x = n.getValue();
+        n.setValue(o.getValue());
+        o.setValue(x);
     }
 
     public void replaceElement(NoLDE n, NoLDE o)
     {
-        o.setAfter(n.getAfter());
-        o.setBefore(n.getBefore());
-
-        o.getAfter().setBefore(o);
-        o.getBefore().setAfter(o);
+        o.setValue(n.getValue());
     }
 
     public boolean isFirst(NoLDE n)

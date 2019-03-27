@@ -6,13 +6,13 @@ public class Main {
   public static void main (String args[])
   {
 
-      /*TADListaDuplamenteEncadeada tadLista = new TADListaDuplamenteEncadeada();
+      TADListaDuplamenteEncadeada tadLista = new TADListaDuplamenteEncadeada();
 
       NoLDE a = tadLista.insertFirst(5);
       NoLDE b = tadLista.insertLast(616);
       NoLDE c = tadLista.insertLast(21);
       NoLDE d = tadLista.insertLast(54);
-      tadLista.remove(d);
+      //tadLista.remove(d);
       //tadLista.replaceElement(a, b);
 
       System.out.println(tadLista.first().getValue());
@@ -26,11 +26,11 @@ public class Main {
       //System.out.println(tadLista.first().getValue());
       //System.out.println(tadLista.last().getValue());
       //System.out.println(tadLista.isFirst(b));
-      //System.out.println(tadLista.isLast(b));*/
+      //System.out.println(tadLista.isLast(b));
 
 
 
-    TADVector TADv = new TADVector();
+    /*TADVector TADv = new TADVector();
 
     try {
       TADv.insertAtRank(0, 10);
@@ -52,7 +52,7 @@ public class Main {
 
     } catch (TADVectorException e) {
       System.out.println(e.getMessage());
-    }
+    }*/
 
 
   }
