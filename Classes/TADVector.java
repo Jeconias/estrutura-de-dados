@@ -17,6 +17,7 @@ public class TADVector implements InterfaceTADVector {
         if(this.validateIndex(v) != true) throw new TADVectorException("Colocação não existente");
         return this.vector[v];
     }
+
     public int replaceAtRank(int v, int o) throws TADVectorException 
     {
         if(this.validateIndex(v) != true) throw new TADVectorException("Colocação não existente");
@@ -25,6 +26,7 @@ public class TADVector implements InterfaceTADVector {
         this.vector[v] = o;
         return intTemp;
     }
+
     public void insertAtRank(int v, int o) 
     {   
         // VERIFICAR SE O VECTOR CHEGOU NO LIMITE
@@ -49,6 +51,7 @@ public class TADVector implements InterfaceTADVector {
         this.vector[v] = o;
         this.size++;
     }
+
     public int removeAtRank(int v) throws TADVectorException 
     {
         if(this.validateIndex(v) != true) throw new TADVectorException("Colocação não existente");
@@ -65,10 +68,12 @@ public class TADVector implements InterfaceTADVector {
        this.size--;
         return intTemp;
     }
+
     public int size() 
     {
         return this.size;
     }
+    
     public boolean isEmpty() {
         return this.size == 0 ? true : false;
     }

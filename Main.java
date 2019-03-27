@@ -6,7 +6,7 @@ public class Main {
   public static void main (String args[])
   {
 
-      TADListaDuplamenteEncadeada tadLista = new TADListaDuplamenteEncadeada();
+      /*TADListaDuplamenteEncadeada tadLista = new TADListaDuplamenteEncadeada();
 
       NoLDE a = tadLista.insertFirst(5);
       NoLDE b = tadLista.insertLast(616);
@@ -26,42 +26,11 @@ public class Main {
       //System.out.println(tadLista.first().getValue());
       //System.out.println(tadLista.last().getValue());
       //System.out.println(tadLista.isFirst(b));
-      //System.out.println(tadLista.isLast(b));
+      //System.out.println(tadLista.isLast(b));*/
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    /*TADVector TADv = new TADVector();
+    TADVector TADv = new TADVector();
 
     try {
       TADv.insertAtRank(0, 10);
@@ -69,13 +38,21 @@ public class Main {
       TADv.insertAtRank(2, 30);
       TADv.insertAtRank(3, 40);
       TADv.insertAtRank(4, 50);
+      TADv.insertAtRank(5, 60);
+      TADv.replaceAtRank(5, 520);
+      TADv.removeAtRank(3);
 
-      //TADv.insertAtRank(2, 520);
-      TADv.replaceAtRank(0, 520);
-      //TADv.insertAtRank(0, 200);
+      System.out.println(TADv.elemAtRank(0));
+      System.out.println(TADv.elemAtRank(1));
+      System.out.println(TADv.elemAtRank(2));
+      System.out.println(TADv.elemAtRank(3));
+      System.out.println(TADv.elemAtRank(4));
+      System.out.println(TADv.elemAtRank(5));
+      System.out.println(TADv.elemAtRank(6));
+
     } catch (TADVectorException e) {
       System.out.println(e.getMessage());
-    }*/
+    }
 
 
   }
