@@ -25,9 +25,9 @@ public class TADListaDuplamenteEncadeada {
     public NoLDE before(NoLDE n)
     {
         return n.getBefore();
-    } 
+    }
 
-    public NoLDE after(NoLDE n) 
+    public NoLDE after(NoLDE n)
     {
         return n.getAfter();
     }
@@ -57,7 +57,7 @@ public class TADListaDuplamenteEncadeada {
         o.setAfter(noTemp);
         this.size++;
         return noTemp;
-    } 
+    }
 
     public NoLDE insertBefore(int n, NoLDE o)
     {
@@ -66,7 +66,7 @@ public class TADListaDuplamenteEncadeada {
         o.setBefore(noTemp);
         this.size++;
         return noTemp;
-    } 
+    }
 
     public void swapElements(NoLDE n, NoLDE o)
     {
@@ -82,19 +82,19 @@ public class TADListaDuplamenteEncadeada {
 
     public boolean isFirst(NoLDE n)
     {
-        return (n.getBefore().getBefore() != null) ? false : true; 
-    } 
-    
+        return (n.getBefore().getBefore() != null) ? false : true;
+    }
+
     public boolean isLast(NoLDE n)
     {
-        return (n.getAfter().getAfter() != null) ? false : true; 
+        return (n.getAfter().getAfter() != null) ? false : true;
     }
 
     public int size()
     {
         return this.size;
     }
-    
+
     public boolean isEmpty()
     {
         return (this.size != 0) ? false : true;
@@ -104,6 +104,9 @@ public class TADListaDuplamenteEncadeada {
     {
         n.getBefore().setAfter(n.getAfter());
         n.getAfter().setBefore(n.getBefore());
+        n.setAfter(null);
+        n.setBefore(null);
+        this.size--;
     }
 
 
