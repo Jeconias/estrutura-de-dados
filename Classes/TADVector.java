@@ -12,23 +12,23 @@ public class TADVector implements InterfaceTADVector {
         this.vector = new int[5];
     }
 
-    public int elemAtRank(int v) throws TADVectorException 
+    public int elemAtRank(int v) throws TADVectorException
     {
         if(this.validateIndex(v) != true) throw new TADVectorException("Colocação não existente");
         return this.vector[v];
     }
 
-    public int replaceAtRank(int v, int o) throws TADVectorException 
+    public int replaceAtRank(int v, int o) throws TADVectorException
     {
         if(this.validateIndex(v) != true) throw new TADVectorException("Colocação não existente");
-        
+
         int intTemp = this.vector[v];
         this.vector[v] = o;
         return intTemp;
     }
 
-    public void insertAtRank(int v, int o) 
-    {   
+    public void insertAtRank(int v, int o)
+    {
         // VERIFICAR SE O VECTOR CHEGOU NO LIMITE
         if(this.size == this.vector.length)
         {
@@ -44,7 +44,7 @@ public class TADVector implements InterfaceTADVector {
         // INSERIR O VALOR NA POSICAO DESEJADA
         int i = (this.vector.length-1);
         while(i > v)
-        {   
+        {
             this.vector[i] = this.vector[i-1];
             i--;
         }
@@ -52,7 +52,7 @@ public class TADVector implements InterfaceTADVector {
         this.size++;
     }
 
-    public int removeAtRank(int v) throws TADVectorException 
+    public int removeAtRank(int v) throws TADVectorException
     {
         if(this.validateIndex(v) != true) throw new TADVectorException("Colocação não existente");
 
@@ -64,24 +64,23 @@ public class TADVector implements InterfaceTADVector {
             this.vector[i] = this.vector[i+1];
             this.vector[i+1] = 0;
        }
-       
+
        this.size--;
         return intTemp;
     }
 
-    public int size() 
+    public int size()
     {
         return this.size;
     }
-    
+
     public boolean isEmpty() {
         return this.size == 0 ? true : false;
     }
 
     private boolean validateIndex(int v)
     {
-        if(v < 0 || v > (this.vector.length - 1)) return false;
-        return true;
+        return (v < 0 || v > (this.vector.length - 1)) ? false : true;
     }
 
 }
