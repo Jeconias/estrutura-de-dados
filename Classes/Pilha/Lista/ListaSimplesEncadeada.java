@@ -1,4 +1,4 @@
-package Classes;
+package Classes.Pilha.Lista;
 
 public class ListaSimplesEncadeada {
     private int value;

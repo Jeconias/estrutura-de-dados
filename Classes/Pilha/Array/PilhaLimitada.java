@@ -1,35 +1,24 @@
-package Classes;
-import Interfaces.InterfacePilhaIlimitada;
+package Classes.Pilha.Array;
+
+import Interfaces.InterfacePilhaLimitada;
 import Exceptions.*;
 
-public class PilhaIlimitada implements InterfacePilhaIlimitada {
+public class PilhaLimitada implements InterfacePilhaLimitada {
 
   int [] dataBase;
   int position;
 
-  public PilhaIlimitada(int size)
+  public PilhaLimitada(int size)
   {
     this.dataBase = new int[size];
     this.position = -1;
   }
 
-  public void push(int value)
+  public void push(int value) throws PilhaCheiaException
   {
     if(this.position == (this.dataBase.length - 1))
     {
-
-      int [] dataBaseTemp = new int[this.dataBase.length * 2];
-      int i;
-
-      for(i = 0; i < this.dataBase.length; i++)
-      {
-        dataBaseTemp[i] = this.dataBase[i];
-      }
-
-      this.position++;
-      dataBaseTemp[this.position] = value;
-
-      this.dataBase = dataBaseTemp;
+      throw new PilhaCheiaException("Pilha Cheia");
     }else{
       this.position++;
       this.dataBase[this.position] = value;

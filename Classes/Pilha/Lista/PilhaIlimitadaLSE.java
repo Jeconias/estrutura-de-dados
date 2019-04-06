@@ -1,6 +1,6 @@
-package Classes;
+package Classes.Pilha.Lista;
 
-import Classes.ListaSimplesEncadeada;
+import Classes.Pilha.Lista.ListaSimplesEncadeada;
 import Interfaces.InterfacePilhaIlimitadaLSE;
 import Exceptions.PilhaVaziaException;
 

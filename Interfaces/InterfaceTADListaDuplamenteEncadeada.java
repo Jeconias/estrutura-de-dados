@@ -1,5 +1,6 @@
 package Interfaces;
-import Classes.NoLDE;
+
+import Classes.Lista.NoLDE;
 
 public interface InterfaceTADListaDuplamenteEncadeada {
 

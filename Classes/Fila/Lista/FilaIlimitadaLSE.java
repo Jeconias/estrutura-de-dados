@@ -1,6 +1,6 @@
-package Classes;
+package Classes.Fila.Lista;
 
-import Classes.ListaSimplesEncadeada;
+import Classes.Pilha.Lista.ListaSimplesEncadeada;
 import Exceptions.*;
 
 public class FilaIlimitadaLSE {

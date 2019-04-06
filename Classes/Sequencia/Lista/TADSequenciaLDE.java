@@ -1,5 +1,7 @@
-package Classes;
+package Classes.Sequencia.Lista;
+
 import Exceptions.TADVectorException;
+import Classes.Lista.NoLDE;
 
 public class TADSequenciaLDE {
 

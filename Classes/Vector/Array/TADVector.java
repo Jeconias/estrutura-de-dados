@@ -1,4 +1,5 @@
-package Classes;
+package Classes.Vector.Array;
+
 import Exceptions.TADVectorException;
 import Interfaces.InterfaceTADVector;
 

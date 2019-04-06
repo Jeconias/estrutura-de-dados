@@ -1,4 +1,5 @@
-package Classes;
+package Classes.Pilha.Array;
+
 import Interfaces.InterfacePilhaIlimitada;
 import Exceptions.*;
 

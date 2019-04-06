@@ -1,4 +1,4 @@
-package Classes;
+package Classes.Lista;
 
 public class TADListaDuplamenteEncadeada {
 
