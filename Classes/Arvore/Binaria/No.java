@@ -1,3 +1,4 @@
+package Classes.Arvore.Binaria;
 
 public class No {
 

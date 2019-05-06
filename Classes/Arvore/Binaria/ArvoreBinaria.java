@@ -1,3 +1,5 @@
+package Classes.Arvore.Binaria;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -203,7 +205,6 @@ public class ArvoreBinaria {
     public int replace(No n, int i) {
         No noTmp = n;
 
-
         while(this.isInternal(noTmp))
         {
             noTmp = (this.hasRightChild(noTmp) && i > noTmp.getElemento()) ? noTmp.getFilhoDireito() : noTmp.getFilhoEsquerdo();
@@ -315,6 +316,7 @@ public class ArvoreBinaria {
             }
             
         }
+        this.size--;
         return n;
     }
 
