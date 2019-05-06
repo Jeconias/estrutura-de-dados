@@ -21,12 +21,12 @@ public class ArvoreBinaria {
 
     // METODOS GENERICOS
 
-    private int size()
+    public int size()
     {
         return this.size;
     }
 
-    private int height(No n)
+    public int height(No n)
     {
         if(n == null || this.isExterno(n) ) return 0;
         
@@ -40,19 +40,19 @@ public class ArvoreBinaria {
         return 1+h;
     }
 
-    private boolean isEmpty()
+    public boolean isEmpty()
     {
         return (this.root == null) ? true : false;
     }
 
     // METODOS DE ACESSO
 
-    private No root()
+    public No root()
     {
         return this.root;
     }
 
-    private No parent(No n)
+    public No parent(No n)
     {
         return n.getPai();
     }
@@ -65,35 +65,35 @@ public class ArvoreBinaria {
         return filhos;
     }
 
-    private boolean hasLeftChild(No n)
+    public boolean hasLeftChild(No n)
     {
         return (n.getFilhoEsquerdo() != null) ? true : false;
     }
 
-    private boolean hasRightChild(No n)
+    public boolean hasRightChild(No n)
     {
         return (n.getFilhoDireito() != null) ? true : false;
     }
 
     // METODOS DE CONSULTA
 
-    private boolean isInternal(No n)
+    public boolean isInternal(No n)
     {
         if(n == null) return false;
         return (n.getFilhoDireito() != null || n.getFilhoEsquerdo() != null) ? true : false;
     }
 
-    private boolean isExterno(No n)
+    public boolean isExterno(No n)
     {
         return (!this.hasRightChild(n) && !this.hasLeftChild(n)) ? true : false;
     }
 
-    private boolean isRoot(No n)
+    public boolean isRoot(No n)
     {
         return (n.getElemento() == this.root.getElemento()) ? true : false;
     }
 
-    private int depth(No n)
+    public int depth(No n)
     {
         if(n == null) return -1;
         if(this.isRoot(n)) return 0;
@@ -205,6 +205,8 @@ public class ArvoreBinaria {
     public int replace(No n, int i) {
         No noTmp = n;
 
+        if(this.search(i) != null){ return -1; }
+
         while(this.isInternal(noTmp))
         {
             noTmp = (this.hasRightChild(noTmp) && i > noTmp.getElemento()) ? noTmp.getFilhoDireito() : noTmp.getFilhoEsquerdo();
@@ -222,7 +224,7 @@ public class ArvoreBinaria {
 		return n.getElemento();
     }
     
-    public void swapElements(No n1, No n2) {
+    public void swapElements(No n1, No n2) { // EU ACHO QUE NAO ESTA CORRETO
 		int intTmp = n1.getElemento();
 		n1.setElemento(n2.getElemento());
 		n2.setElemento(intTmp);
@@ -324,6 +326,11 @@ public class ArvoreBinaria {
     {
         No noTemp = this.root;
 
+        if(this.isExterno(this.root) && i != this.root.getElemento())
+        {
+            return null;
+        }
+
         while(noTemp != null)
         {
             if(i == noTemp.getElemento())
@@ -336,6 +343,7 @@ public class ArvoreBinaria {
                 noTemp = noTemp.getFilhoEsquerdo();
             }
         }
+
         return noTemp;
     }
 
