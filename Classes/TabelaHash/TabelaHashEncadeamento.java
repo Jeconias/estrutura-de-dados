@@ -5,13 +5,15 @@ import java.util.ArrayList;
 
 public class TabelaHashEncadeamento {
 
-    private No [] list = new No[10];
+    private No [] list = new No[5];
     private int size = 0;
 
     public TabelaHashEncadeamento(){}
 
     public int insertItem(int k, Object o)
     {
+        if(this.size == this.list.length) this.resize();
+
         int index = this.dispersal(k);
 
         No no = new No();
@@ -87,7 +89,7 @@ public class TabelaHashEncadeamento {
     {
         int listSize = this.list.length;
         No noTmp;
-        ArrayList<Integer> chaves = new ArrayList();
+        ArrayList<Integer> chaves = new ArrayList<Integer>();
         
         for(int i = 0; i < listSize; i++)
         {
@@ -106,7 +108,7 @@ public class TabelaHashEncadeamento {
 
     public ArrayList<No> elements()
     {
-        ArrayList<No> nos = new ArrayList();
+        ArrayList<No> nos = new ArrayList<No>();
         ArrayList<Integer> keys = this.keys();
         int keysSize = keys.size();
 
@@ -124,6 +126,18 @@ public class TabelaHashEncadeamento {
         return nos;
     }
 
+    private void resize()
+    {
+        ArrayList<No> nos = this.elements();
+        int sizeNos = nos.size();
+
+        this.list = new No[ this.list.length * 2 ];
+
+        for(int i = 0; i < sizeNos; i++)
+        {
+            this.insertItem( nos.get(i).getChave(), nos.get(i).getValor() );
+        }
+    }
 
     private int dispersal(int k)
     {
