@@ -6,10 +6,12 @@ import Classes.Pilha.Lista.*;
 import Classes.Sequencia.Lista.*;
 import Classes.Vector.Array.*;
 import Classes.Arvore.Binaria.*;
+import Classes.TabelaHash.*;
 import Exceptions.*;
 
 import java.util.Scanner;
 import java.util.InputMismatchException;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -43,10 +45,43 @@ public class Main {
     // ARVORE BINARIA
     ArvoreBinaria ArvB = new ArvoreBinaria();
 
+    // TABELA HASH
+    TabelaHashEncadeamento TabelaHashEncadeamento = new TabelaHashEncadeamento();
 
 
+    // ### TESTES PARA A TABELA HASH COM ENCADEADA ###
+
+    TabelaHashEncadeamento.insertItem(15, "a");
+    TabelaHashEncadeamento.insertItem(21, "b");
+    TabelaHashEncadeamento.insertItem(10, "c");
+    TabelaHashEncadeamento.insertItem(31, "d");
+    TabelaHashEncadeamento.insertItem(25, "Test");
+    TabelaHashEncadeamento.insertItem(5, "cinco");
+
+    
+    //TabelaHashEncadeamento.removeElement(25);
+
+    //System.out.println(TabelaHashEncadeamento.search(25));
+    try
+    {
+      TabelaHashEncadeamento.removeElement(5);
+      //System.out.println( TabelaHashEncadeamento.findElement(5).getValor() );
+    }
+      catch(NenhumElementoException e)
+    {
+      System.out.println(e.getMessage());
+    }
 
 
+    ArrayList<Classes.TabelaHash.No> nos = TabelaHashEncadeamento.elements();
+
+    System.out.println( nos.get(0).getValor() );
+    System.out.println( nos.get(1).getValor() );
+    System.out.println( nos.get(2).getValor() );
+    System.out.println( nos.get(3).getValor() );
+    System.out.println( nos.get(4).getValor() );
+
+    System.out.println( TabelaHashEncadeamento.size() );
 
   }
 }
