@@ -59,10 +59,12 @@ public class TabelaHashEncadeamento {
 
         if(noTmp.getProximo() == null) throw new NenhumElementoException("NO_SUCH_KEY");;
 
-        No removeTmp = noTmp.getProximo();
-        objTmp = removeTmp.getValor();
-        noTmp.setProximo(removeTmp.getProximo());
-        removeTmp = null;
+        No noRemoveTmp = noTmp.getProximo();
+        objTmp = noRemoveTmp.getValor();
+
+        noTmp.setProximo(noRemoveTmp.getProximo());
+        
+        noRemoveTmp = null;
         this.size--;
         return objTmp;
     }
