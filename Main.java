@@ -55,17 +55,33 @@ public class Main {
     // ### TESTES PARA A TABELA HASH COM ENCADEADA ###
 
     try{
-      TabelaHashLinearProbing.insertItem(18, "a");
+      TabelaHashLinearProbing.insertItem(5, "a");
+      TabelaHashLinearProbing.insertItem(19, "b");
+      /*TabelaHashLinearProbing.insertItem(90, "c");
       TabelaHashLinearProbing.insertItem(19, "d");
-      TabelaHashLinearProbing.insertItem(18, "a");
-      TabelaHashLinearProbing.insertItem(19, "a");
-      TabelaHashLinearProbing.insertItem(18, "a");
+      TabelaHashLinearProbing.insertItem(24, "e");
+      TabelaHashLinearProbing.insertItem(30, "f");
+      TabelaHashLinearProbing.insertItem(27, "g");*/
+      System.out.println(TabelaHashLinearProbing.removeElement(19));
+      //System.out.println(TabelaHashLinearProbing.removeElement(10));
+      System.out.println(TabelaHashLinearProbing.findElement(19).getValor());
     }catch(TabelaHashCheiaException e)
     {
+      System.out.println(e.getMessage());
+    }catch(NenhumElementoException e){
       System.out.println(e.getMessage());
     }
     //TabelaHashEncadeamento.insertItem(25, "Test");
     //TabelaHashEncadeamento.insertItem(5, "cinco");
+
+    ArrayList<Integer> chaves = TabelaHashLinearProbing.keys();
+    int limit = chaves.size();
+    for(int i = 0; i < limit; i++)
+    {
+      System.out.println(chaves.get(i));
+    }
+
+
 
   }
 }
