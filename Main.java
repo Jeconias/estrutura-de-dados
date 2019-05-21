@@ -48,40 +48,24 @@ public class Main {
     // TABELA HASH
     TabelaHashEncadeamento TabelaHashEncadeamento = new TabelaHashEncadeamento();
 
+    TabelaHashLinearProbing TabelaHashLinearProbing = new TabelaHashLinearProbing();
+
+
 
     // ### TESTES PARA A TABELA HASH COM ENCADEADA ###
 
-    TabelaHashEncadeamento.insertItem(15, "a");
-    TabelaHashEncadeamento.insertItem(21, "b");
-    TabelaHashEncadeamento.insertItem(10, "c");
-    //TabelaHashEncadeamento.insertItem(31, "d");
+    try{
+      TabelaHashLinearProbing.insertItem(18, "a");
+      TabelaHashLinearProbing.insertItem(19, "d");
+      TabelaHashLinearProbing.insertItem(18, "a");
+      TabelaHashLinearProbing.insertItem(19, "a");
+      TabelaHashLinearProbing.insertItem(18, "a");
+    }catch(TabelaHashCheiaException e)
+    {
+      System.out.println(e.getMessage());
+    }
     //TabelaHashEncadeamento.insertItem(25, "Test");
     //TabelaHashEncadeamento.insertItem(5, "cinco");
-
-    
-    //TabelaHashEncadeamento.removeElement(25);
-
-    //System.out.println(TabelaHashEncadeamento.search(25));
-    try
-    {
-      //TabelaHashEncadeamento.removeElement(15);
-      System.out.println( TabelaHashEncadeamento.findElement(21).getValor() );
-    }
-      catch(NenhumElementoException e)
-    {
-      System.out.println( e.getMessage() );
-    }
-
-
-    ArrayList<Classes.TabelaHash.No> nos = TabelaHashEncadeamento.elements();
-
-    //System.out.println( nos.get(0).getValor() );
-    //System.out.println( nos.get(1).getValor() );
-    //System.out.println( nos.get(2).getValor() );
-    //System.out.println( nos.get(3).getValor() );
-    //System.out.println( nos.get(4).getValor() );
-
-    //System.out.println( TabelaHashEncadeamento.size() );
 
   }
 }
