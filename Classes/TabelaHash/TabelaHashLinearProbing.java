@@ -1,50 +1,145 @@
 package Classes.TabelaHash;
 
+import Exceptions.NenhumElementoException;
+import Exceptions.TabelaHashCheiaException;
+import java.util.ArrayList;
+
 public class TabelaHashLinearProbing {
 
-    private int [] list = new int[14];
+    private No [] list = new No[5];
+    private int size = 0;
 
     public TabelaHashLinearProbing(){}
 
-    public int insert(int k)
+    public int insertItem(int k, Object o) throws TabelaHashCheiaException
     {
-        int index = this.dispersal(k);
-        if(this.list[index] == 0) 
-        {
-            this.list[index] = k;
-            return index;
-        }
+        //if(this.size == this.list.length) this.resize();
 
-        for(int i = index; i != (index - 1); i = (i + 1) % this.list.length)
-        {
-            if(this.list[i] == 0)
-            {
-                this.list[i] = k;
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    public int search(int k)
-    {
         int index = this.dispersal(k);
         int i = index;
-        while(i != (index - 1))
+        
+        No noTmp = this.list[ index ];
+        No no = new No();
+        no.setChave(k);
+        no.setValor(o);
+
+        while(noTmp != null)
         {
-            if(this.list[i] == 0) return -1;
-            if(this.list[i] == k) return i;
-            i = ((i + 1) % this.list.length); 
+            i = (i + 1) % this.list.length;
+            noTmp = this.list[ i ];
+            if(i == index) throw new TabelaHashCheiaException("FULL_TABLE");
         }
-        return -1;
+
+        this.list[ i ] = no;
+        this.size++;
+        return index;
     }
 
+    public Object removeElement(int k) throws NenhumElementoException
+    {
+        int index = this.dispersal(k);
+        No noTmp = this.list[index];
+        Object objTmp = "EMPTY";
 
+        objTmp = (this.list[index] != null && this.list[index].getChave() == k) ? this.list[index].getValor() : "EMPTY";
+
+        if(objTmp != "EMPTY")
+        {
+            this.list[index] = null;
+            return objTmp;
+        }
+
+        if(this.list[index] == null) throw new NenhumElementoException("NO_SUCH_KEY");
+
+        while(noTmp != null)
+        {
+            i = (i + 1) % this.list.length;
+            noTmp = this.list[ i ];
+            if(i == index) throw new TabelaHashCheiaException("FULL_TABLE");
+        }
+
+    }
+
+    public No findElement(int k) throws NenhumElementoException
+    {      
+        int index = this.dispersal(k);
+        No noTmp = this.list[ index ];
+
+        while(noTmp != null && noTmp.getChave() != k)
+        {
+            noTmp = noTmp.getProximo();
+        }
+
+        if(noTmp != null) return noTmp;
+        throw new NenhumElementoException("NO_SUCH_KEY");
+    }
+
+    public ArrayList<Integer> keys()
+    {
+        int listSize = this.list.length;
+        No noTmp;
+        ArrayList<Integer> chaves = new ArrayList<Integer>();
+        
+        for(int i = 0; i < listSize; i++)
+        {
+            if(this.list[i] != null)
+            {
+                noTmp = this.list[i];
+                while(noTmp != null)
+                {
+                    chaves.add(noTmp.getChave());
+                    noTmp = noTmp.getProximo();
+                }
+            }
+        }
+        return chaves;
+    }
+
+    public ArrayList<No> elements()
+    {
+        ArrayList<No> nos = new ArrayList<No>();
+        ArrayList<Integer> keys = this.keys();
+        int keysSize = keys.size();
+
+        for(int i = 0; i < keysSize; i++)
+        {
+            try
+            {
+                nos.add( this.findElement( keys.get(i) ) );
+            }
+            catch(NenhumElementoException e)
+            {
+                continue;
+            }
+        }
+        return nos;
+    }
+
+    private void resize()
+    {
+        ArrayList<No> nos = this.elements();
+        int sizeNos = nos.size();
+
+        this.list = new No[ this.list.length * 2 ];
+
+        for(int i = 0; i < sizeNos; i++)
+        {
+            //this.insertItem( nos.get(i).getChave(), nos.get(i).getValor() );
+        }
+    }
 
     private int dispersal(int k)
     {
-        return k % (this.list.length - 1);
+        return k % this.list.length;
     }
 
+    public int size()
+    {
+        return this.size;
+    }
 
+    public boolean isEmpty()
+    {
+        return (this.size() != 0) ? false : true;
+    }
 }
