@@ -1,6 +1,7 @@
 import Classes.Fila.Array.*;
 import Classes.Fila.Lista.*;
 import Classes.Lista.*;
+import Classes.Ordenacao.*;
 import Classes.Pilha.Array.*;
 import Classes.Pilha.Lista.*;
 import Classes.Sequencia.Lista.*;
@@ -12,6 +13,12 @@ import Exceptions.*;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.Reader;
+import java.io.BufferedReader;
+import java.io.IOException;
 
 public class Main {
 
@@ -47,39 +54,15 @@ public class Main {
 
     // TABELA HASH
     TabelaHashEncadeamento TabelaHashEncadeamento = new TabelaHashEncadeamento();
-
     TabelaHashLinearProbing TabelaHashLinearProbing = new TabelaHashLinearProbing();
 
 
+    int[] ordenado = SelectSort.ordenar(numeros);
 
-    // ### TESTES PARA A TABELA HASH COM ENCADEADA ###
-
-    try{
-      TabelaHashLinearProbing.insertItem(5, "a");
-      TabelaHashLinearProbing.insertItem(19, "b");
-      /*TabelaHashLinearProbing.insertItem(90, "c");
-      TabelaHashLinearProbing.insertItem(19, "d");
-      TabelaHashLinearProbing.insertItem(24, "e");
-      TabelaHashLinearProbing.insertItem(30, "f");
-      TabelaHashLinearProbing.insertItem(27, "g");*/
-      System.out.println(TabelaHashLinearProbing.removeElement(19));
-      //System.out.println(TabelaHashLinearProbing.removeElement(10));
-      System.out.println(TabelaHashLinearProbing.findElement(19).getValor());
-    }catch(TabelaHashCheiaException e)
-    {
-      System.out.println(e.getMessage());
-    }catch(NenhumElementoException e){
-      System.out.println(e.getMessage());
+    for(int i = 0; i < 1000; i++){
+      System.out.print(numeros[i]);
     }
-    //TabelaHashEncadeamento.insertItem(25, "Test");
-    //TabelaHashEncadeamento.insertItem(5, "cinco");
-
-    ArrayList<Integer> chaves = TabelaHashLinearProbing.keys();
-    int limit = chaves.size();
-    for(int i = 0; i < limit; i++)
-    {
-      System.out.println(chaves.get(i));
-    }
+   
 
 
 
