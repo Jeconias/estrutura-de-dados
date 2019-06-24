@@ -10,9 +10,7 @@ import Classes.Arvore.Binaria.*;
 import Classes.TabelaHash.*;
 import Exceptions.*;
 
-import java.util.Scanner;
-import java.util.InputMismatchException;
-import java.util.ArrayList;
+import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -25,45 +23,67 @@ public class Main {
   public static void main (String args[])
   {
 
-    // TAD FILA COM ARRAY
-    FilaIlimitada FilaIlimitada = new FilaIlimitada();
+      // TAD FILA COM ARRAY
+      FilaIlimitada FilaIlimitada = new FilaIlimitada();
 
-    // TAD FILA COM LISTA SIMPLES ENCADEADA
-    FilaIlimitadaLSE FilaIlimitadaLSE = new FilaIlimitadaLSE();
+      // TAD FILA COM LISTA SIMPLES ENCADEADA
+      FilaIlimitadaLSE FilaIlimitadaLSE = new FilaIlimitadaLSE();
 
-    // TAD LISTA COM LISTA DUPLAMENTE ENCADEADA
-    TADListaDuplamenteEncadeada TADListaDuplamenteEncadeada = new TADListaDuplamenteEncadeada();
+      // TAD LISTA COM LISTA DUPLAMENTE ENCADEADA
+      TADListaDuplamenteEncadeada TADListaDuplamenteEncadeada = new TADListaDuplamenteEncadeada();
 
-    // TAD PILHA COM ARRAY
-    PilhaLimitada PilhaLimitada = new PilhaLimitada(10);
+      // TAD PILHA COM ARRAY
+      PilhaLimitada PilhaLimitada = new PilhaLimitada(10);
 
-    // TAD PILHA COM ARRAY
-    PilhaIlimitada PilhaIlimitada = new PilhaIlimitada(10);
+      // TAD PILHA COM ARRAY
+      PilhaIlimitada PilhaIlimitada = new PilhaIlimitada(10);
 
-    // TAD PILHA COM ARRAY (PILHA RUBRO)
-    PilhaIlimitadaVP PilhaIlimitadaVP = new PilhaIlimitadaVP(10);
+      // TAD PILHA COM ARRAY (PILHA RUBRO)
+      PilhaIlimitadaVP PilhaIlimitadaVP = new PilhaIlimitadaVP(10);
 
-    // TAD SEQUENCIA COM LISTA DUPLAMENTE LIGADA
-    TADSequenciaLDE TADSequenciaLDE = new TADSequenciaLDE();
+      // TAD SEQUENCIA COM LISTA DUPLAMENTE LIGADA
+      TADSequenciaLDE TADSequenciaLDE = new TADSequenciaLDE();
 
-    // TAD VECTOR COM ARRAY
-    TADVector TADVector = new TADVector();
+      // TAD VECTOR COM ARRAY
+      TADVector TADVector = new TADVector();
 
-    // ARVORE BINARIA
-    ArvoreBinaria ArvB = new ArvoreBinaria();
+      // ARVORE BINARIA
+      ArvoreBinaria ArvB = new ArvoreBinaria();
 
-    // TABELA HASH
-    TabelaHashEncadeamento TabelaHashEncadeamento = new TabelaHashEncadeamento();
-    TabelaHashLinearProbing TabelaHashLinearProbing = new TabelaHashLinearProbing();
+      // TABELA HASH
+      TabelaHashEncadeamento TabelaHashEncadeamento = new TabelaHashEncadeamento();
+      TabelaHashLinearProbing TabelaHashLinearProbing = new TabelaHashLinearProbing();
 
+      int [] intArr = new int[10001];
+      int i = 0;
+      // LER OS DADOS PARA REALIZAR OS TESTES
+      try{
+        BufferedReader br = new BufferedReader(new FileReader("./Ordenacao/teste_10000_1.dat"));
+        
+        while(br.ready())
+        {
+          String linha = br.readLine();
+          intArr[i] = Integer.parseInt(linha);
+          i++;
+        }
+        br.close();
+      }catch(Exception e){
+        System.out.println(e.getMessage());
+      }
+      
+      long tempoInicio = System.currentTimeMillis();
+      // ORDENAR OS INTEIROS COM selectSort ou mergeSort
+      int [] newIntArr;
+      //newIntArr = SelectSort.sort(intArr);
+      newIntArr = MergeSort.sort(intArr);
 
-    int[] ordenado = SelectSort.ordenar(numeros);
+      System.out.println("Tempo Total: " + (System.currentTimeMillis() - tempoInicio));
 
-    for(int i = 0; i < 1000; i++){
-      System.out.print(numeros[i]);
-    }
-   
-
+      // EXIBIR OS DADOS
+      /*for(i = 0; i < newIntArr.length; i++)
+      {
+        System.out.println(newIntArr[i]);
+      }*/
 
 
   }
