@@ -24,7 +24,7 @@ public class Main {
   {
 
       // TAD FILA COM ARRAY
-      FilaIlimitada FilaIlimitada = new FilaIlimitada();
+      /*FilaIlimitada FilaIlimitada = new FilaIlimitada();
 
       // TAD FILA COM LISTA SIMPLES ENCADEADA
       FilaIlimitadaLSE FilaIlimitadaLSE = new FilaIlimitadaLSE();
@@ -45,20 +45,35 @@ public class Main {
       TADSequenciaLDE TADSequenciaLDE = new TADSequenciaLDE();
 
       // TAD VECTOR COM ARRAY
-      TADVector TADVector = new TADVector();
+      TADVector TADVector = new TADVector();*/
 
       // ARVORE BINARIA
-      ArvoreBinaria ArvB = new ArvoreBinaria();
+      ArvoreBinariaDePesquisa ArvB = new ArvoreBinariaDePesquisa();
+      ArvB.inserir(10);
+      ArvB.inserir(4);
+      //ArvB.inserir(11);
+      //ArvB.inserir(15);
+      //ArvB.inserir(13);
+      //ArvB.inserir(6);
+      //ArvB.inserir(3);
+      ArvB.exibir();
 
+
+      System.out.println("\n");
+
+      //ArvB.remover(10);
+      ArvB.remover(4);
+      ArvB.exibir();
+      
       // TABELA HASH
-      TabelaHashEncadeamento TabelaHashEncadeamento = new TabelaHashEncadeamento();
-      TabelaHashLinearProbing TabelaHashLinearProbing = new TabelaHashLinearProbing();
+      /*TabelaHashEncadeamento TabelaHashEncadeamento = new TabelaHashEncadeamento();
+      TabelaHashLinearProbing TabelaHashLinearProbing = new TabelaHashLinearProbing();*/
 
       int [] intArr = new int[10001];
       int i = 0;
       // LER OS DADOS PARA REALIZAR OS TESTES
       try{
-        BufferedReader br = new BufferedReader(new FileReader("./Ordenacao/teste_10000_1.dat"));
+        BufferedReader br = new BufferedReader(new FileReader("./Ordenacao/teste_1000_1.dat"));
         
         while(br.ready())
         {
@@ -76,15 +91,7 @@ public class Main {
       int [] newIntArr;
       //newIntArr = SelectSort.sort(intArr);
       newIntArr = MergeSort.sort(intArr);
-
-      System.out.println("Tempo Total: " + (System.currentTimeMillis() - tempoInicio));
-
-      // EXIBIR OS DADOS
-      /*for(i = 0; i < newIntArr.length; i++)
-      {
-        System.out.println(newIntArr[i]);
-      }*/
-
+      //System.out.println("Tempo Total: " + (System.currentTimeMillis() - tempoInicio));
 
   }
 }
