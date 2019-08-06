@@ -2,6 +2,7 @@ package Classes.Arvore.Binaria;
 
 import java.util.List;
 import java.util.ArrayList;
+import Exceptions.ElementoNaoEncontradoException;
 
 public class ArvoreBinariaDePesquisa {
 
@@ -35,6 +36,15 @@ public class ArvoreBinariaDePesquisa {
         }
         this.size++;
         return true;
+    }
+
+    public No procurar(int elemento) throws ElementoNaoEncontradoException
+    {
+        No noAux = this.pesquisar(elemento, this.root);
+        if(noAux.getElemento() != elemento){
+            throw new ElementoNaoEncontradoException("Elemento não encontrado");
+        }
+        return noAux;
     }
 
     public boolean remover(int elemento)
