@@ -58,12 +58,17 @@ public class Main {
       //ArvB.inserir(3);
       ArvB.exibir();
 
+      try{
+        System.out.println(ArvB.procurar(4).getElemento());
+      }catch(ElementoNaoEncontradoException e){
+        System.out.println(e.getMessage());
+      }
 
-      System.out.println("\n");
+      //System.out.println("\n");
 
       //ArvB.remover(10);
-      ArvB.remover(4);
-      ArvB.exibir();
+      //ArvB.remover(4);
+      //ArvB.exibir();
       
       // TABELA HASH
       /*TabelaHashEncadeamento TabelaHashEncadeamento = new TabelaHashEncadeamento();
