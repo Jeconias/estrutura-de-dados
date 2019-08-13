@@ -76,10 +76,17 @@ public class ArvoreAVL extends ArvoreBinariaDePesquisa {
             subArvoreDireita.setPai( (noPai.getPai() != null) ? noPai.getPai() : null );
             subArvoreDireita.setFilhoEsquerdo(noPai);
             noPai.setFilhoDireito(null);
+            
             if(noPai.getPai() != null) noPai.getPai().setFilhoDireito(subArvoreDireita);
+            // verificar se a subarvore eh filho esquero ou direito do pai para adiconar o filho (do noPai) correto
         }
 
-        // FALTA ATUALIZAR O FB
+        int noPaiNovoFb = noPai.getFB() + 1 - (Math.min( subArvoreDireita.getFB(), 0));
+        int subArvoreDireitaNovoFb = subArvoreDireita.getFB() + 1 + (Math.max(noPai.getFB(), 0));
+
+        noPai.setFB(noPaiNovoFb);
+        subArvoreDireita.setFB(subArvoreDireitaNovoFb);
+
     }
 
     // IF FB pai = 2 && FB subArvoreEsquerda >= 0
@@ -101,8 +108,11 @@ public class ArvoreAVL extends ArvoreBinariaDePesquisa {
             if(noPai.getPai() != null) noPai.getPai().setFilhoEsquerdo(subArvoreEsquerda);
         }
 
-        // FALTA ATUALIZAR O FB
+        int noPaiNovoFb = noPai.getFB() - 1 - (Math.max(subArvoreEsquerda.getFB(), 0));
+        int subArvoreEsquerdaNovoFb = subArvoreEsquerda.getFB() - 1 + (Math.min(noPaiNovoFb, 0));
 
+        noPai.setFB(noPaiNovoFb);
+        subArvoreEsquerda.setFB(subArvoreEsquerdaNovoFb);
     }
 
 }

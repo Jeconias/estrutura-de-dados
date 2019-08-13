@@ -60,6 +60,16 @@ public class Main {
 
       // ARVORE AVL
       ArvoreAVL avl = new ArvoreAVL();
+
+      avl.inserir(2);
+      avl.inserir(1);
+      avl.inserir(3);
+      avl.inserir(4);
+      avl.inserir(5);
+      avl.inserir(6);
+
+      avl.exibir();
+
       
 
 
