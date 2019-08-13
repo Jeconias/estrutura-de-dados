@@ -56,13 +56,43 @@ public class Main {
       //ArvB.inserir(13);
       //ArvB.inserir(6);
       //ArvB.inserir(3);
-      ArvB.exibir();
+      //ArvB.exibir();
 
-      try{
+      // ARVORE AVL
+      ArvoreAVL avl = new ArvoreAVL();
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      /*try{
         System.out.println(ArvB.procurar(4).getElemento());
       }catch(ElementoNaoEncontradoException e){
         System.out.println(e.getMessage());
-      }
+      }*/
 
       //System.out.println("\n");
 
