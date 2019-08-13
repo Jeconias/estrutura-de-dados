@@ -6,10 +6,10 @@ import Exceptions.ElementoNaoEncontradoException;
 
 public class ArvoreBinariaDePesquisa {
 
-    private No root                     = null;
-    private ArrayList<No> listaNos      = null;
+    protected No root                   = null;
+    protected ArrayList<No> listaNos    = null;
     private int cacheNos                = -1;
-    private int size                    = 0;
+    protected int size                  = 0;
 
     public ArvoreBinariaDePesquisa(){}
 
