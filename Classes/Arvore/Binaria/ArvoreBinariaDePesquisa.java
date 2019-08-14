@@ -208,6 +208,11 @@ public class ArvoreBinariaDePesquisa {
         return noAux;
     }
 
+    public boolean isRoot(No no)
+    {
+        return (no == this.root) ? true : false;
+    }
+
     private Boolean temFilhoEsquerdo(No noAux)
     {
         return (noAux.getFilhoEsquerdo() != null) ? true : false;

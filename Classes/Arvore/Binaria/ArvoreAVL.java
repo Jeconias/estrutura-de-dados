@@ -42,26 +42,25 @@ public class ArvoreAVL extends ArvoreBinariaDePesquisa {
         while(true)
         {
             this.incrementarFB(noAvlTemp, lado);
-            int fb = noAvlTemp.getFB();
 
-            if(method == 'i' && fb == 0 || method == 'r' && fb != 0 || noAvlTemp.getPai() == null) break;
-
-            if(fb == 2 && noAvlTemp.getFilhoEsquerdo() != null && ((NoAVL) noAvlTemp.getFilhoEsquerdo()).getFB() < 0)
+            if(noAvlTemp.getFB() == 2 && noAvlTemp.getFilhoEsquerdo() != null && ((NoAVL) noAvlTemp.getFilhoEsquerdo()).getFB() < 0)
             {
                 // rotacao dupla direita
-            }else if(fb == -2 && noAvlTemp.getFilhoDireito() != null && ((NoAVL) noAvlTemp.getFilhoDireito()).getFB() > 0 ){
+                System.out.print("ROTAÇAO DUPLOA DIREITA");
+            }else if(noAvlTemp.getFB() == -2 && noAvlTemp.getFilhoDireito() != null && ((NoAVL) noAvlTemp.getFilhoDireito()).getFB() > 0 ){
                 // rotacao dupla esquerda
-            }else if(fb == -2){
+                System.out.print("ROTAÇAO DUPLOA ESQUERDA");
+            }else if(noAvlTemp.getFB() == -2){
                 // rotação esquerda simples
-                this.rotacaoEsquerdaSimples(noAvlTemp);
-            }else if(fb == 2){
+                noAvlTemp = this.rotacaoEsquerdaSimples(noAvlTemp);
+            }else if(noAvlTemp.getFB() == 2){
                 // rotacao direita simples
-                this.rotacaoDireitaSimples(noAvlTemp);
+                noAvlTemp = this.rotacaoDireitaSimples(noAvlTemp);
             }
-            noAvlTemp = (NoAVL) noPai.getPai();
-        }
 
-        //this.balancear((NoAVL) noPai.getPai(), lado, 'i');
+            if(method == 'i' && noAvlTemp.getFB() == 0 || method == 'r' && noAvlTemp.getFB() != 0 || noAvlTemp.getPai() == null) break;
+            noAvlTemp = (NoAVL) noAvlTemp.getPai();
+        }
     }
 
     public void incrementarFB(NoAVL no, char lado)
@@ -71,7 +70,7 @@ public class ArvoreAVL extends ArvoreBinariaDePesquisa {
     }
 
     // IF FB pai = -2 && FB subArvoreDireita <= 0
-    private void rotacaoEsquerdaSimples(NoAVL noPai)
+    private NoAVL rotacaoEsquerdaSimples(NoAVL noPai)
     {
         NoAVL subArvoreDireita = (NoAVL) noPai.getFilhoDireito();
         
@@ -102,11 +101,16 @@ public class ArvoreAVL extends ArvoreBinariaDePesquisa {
         noPai.setFB(noPaiNovoFb);
         subArvoreDireita.setFB(subArvoreDireitaNovoFb);
 
+        if(noPai == this.root){
+            this.root = subArvoreDireita;
+            subArvoreDireita.setPai(null);
+        }
+        return subArvoreDireita;
     }
 
     // IF FB pai = 2 && FB subArvoreEsquerda >= 0
     // Caso o FB na subárvore esquerda do nó desregulado for < 0, faz rotação dupla direita
-    private void rotacaoDireitaSimples(NoAVL noPai)
+    private NoAVL rotacaoDireitaSimples(NoAVL noPai)
     {
         NoAVL subArvoreEsquerda = (NoAVL) noPai.getFilhoEsquerdo();
 
@@ -136,6 +140,12 @@ public class ArvoreAVL extends ArvoreBinariaDePesquisa {
 
         noPai.setFB(noPaiNovoFb);
         subArvoreEsquerda.setFB(subArvoreEsquerdaNovoFb);
+
+        if(noPai == this.root){
+            this.root = subArvoreEsquerda;
+            subArvoreEsquerda.setPai(null);
+        }
+        return subArvoreEsquerda;
     }
 
     // @Override
@@ -149,9 +159,8 @@ public class ArvoreAVL extends ArvoreBinariaDePesquisa {
         
         for(int i = 0; i < totalNos; i++)
         {
-            nosString += "NO: "+ nos.get(i).getElemento() +" => FB: " + ((NoAVL)nos.get(i)).getFB() + "\n";
+            nosString += "NOh: "+ nos.get(i).getElemento() +" => FB: " + ((NoAVL)nos.get(i)).getFB() + "\n";
             tabela[ this.profundidade(nos.get(i)) ][i] = nos.get(i).getElemento();
-
         }
 
         for(int i = 0; i < linhas; i++)
@@ -167,7 +176,7 @@ public class ArvoreAVL extends ArvoreBinariaDePesquisa {
             }
             System.out.print("\n");
         }
-        System.out.print(nosString);
+        System.out.println(nosString);
     }
 
 }
