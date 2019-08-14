@@ -66,7 +66,7 @@ public class Main {
       avl.inserir(3);
       avl.inserir(4);
       avl.inserir(5);
-      avl.inserir(6);
+      //avl.inserir(6);
 
       avl.exibir();
 

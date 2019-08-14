@@ -132,7 +132,7 @@ public class ArvoreBinariaDePesquisa {
         return this.listaNos;
     }
 
-    private void preOrdem(No noAux)
+    protected void preOrdem(No noAux)
     {
         if(noAux == null) return;
 
@@ -147,7 +147,7 @@ public class ArvoreBinariaDePesquisa {
         }
     }
 
-    private void inOrdem(No noAux)
+    protected void inOrdem(No noAux)
     {
         if(noAux == null) return;
 
@@ -162,7 +162,7 @@ public class ArvoreBinariaDePesquisa {
         }
     }
 
-    private void posOrdem(No noAux)
+    protected void posOrdem(No noAux)
     {
         if(noAux == null) return;
 

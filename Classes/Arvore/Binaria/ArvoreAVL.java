@@ -1,5 +1,7 @@
 package Classes.Arvore.Binaria;
 
+import java.util.ArrayList;
+
 public class ArvoreAVL extends ArvoreBinariaDePesquisa {
 
     public ArvoreAVL(){ super(); }
@@ -15,57 +17,64 @@ public class ArvoreAVL extends ArvoreBinariaDePesquisa {
         NoAVL noAux = (NoAVL) this.pesquisar(novoElemento, this.root);
         NoAVL novoFilho = new NoAVL(novoElemento, 0, null, null, noAux);
         int elemento = noAux.getElemento();
-        int lado;
+        char lado;
 
         if(novoElemento == elemento) return false; // O ELEMENTO JA EXISTE NA ARVORE
         
         if(novoElemento < elemento)
         {
             noAux.setFilhoEsquerdo(novoFilho);
-            lado = 1;
-            //noAux.setFB( noAux.getFB() + 1 );
+            lado = 'E';
         }else{
             noAux.setFilhoDireito(novoFilho);
-            lado = -1;
-            //noAux.setFB( noAux.getFB() - 1);
+            lado = 'D';
         }
 
-        this.balancear(noAux, lado);
+        this.balancear(noAux, lado, 'i');
 
         this.size++;
         return true;
     }
 
-    private void balancear(NoAVL noPai, int lado)
+    private void balancear(NoAVL noPai, char lado, char method)
     {
-        noPai.setFB( noPai.getFB() + lado );
-        int fb = noPai.getFB();
-
-        if(lado == 1 && fb == 0 || lado == -1 && fb == 0) return; // criterio de parada da insercao
-        if(lado == -1 && fb != 0 || lado == 1 && fb != 0) return; // criterio de parada da remocao
-
-        if(fb == 2 && noPai.getFilhoEsquerdo() != null && ((NoAVL) noPai.getFilhoEsquerdo()).getFB() < 0)
+        NoAVL noAvlTemp = noPai;
+        while(true)
         {
-            // rotacao dupla direita
-        }else if(fb == -2 && noPai.getFilhoDireito() != null && ((NoAVL) noPai.getFilhoDireito()).getFB() > 0 ){
-            // rotacao dupla esquerda
-        }else if(fb == -2){
-            // rotação esquerda simples
-            this.rotacaoEsquerdaSimples(noPai);
-        }else if(fb == 2){
-            // rotacao direita simples
-            this.rotacaoDireitaSimples(noPai);
+            this.incrementarFB(noAvlTemp, lado);
+            int fb = noAvlTemp.getFB();
+
+            if(method == 'i' && fb == 0 || method == 'r' && fb != 0 || noAvlTemp.getPai() == null) break;
+
+            if(fb == 2 && noAvlTemp.getFilhoEsquerdo() != null && ((NoAVL) noAvlTemp.getFilhoEsquerdo()).getFB() < 0)
+            {
+                // rotacao dupla direita
+            }else if(fb == -2 && noAvlTemp.getFilhoDireito() != null && ((NoAVL) noAvlTemp.getFilhoDireito()).getFB() > 0 ){
+                // rotacao dupla esquerda
+            }else if(fb == -2){
+                // rotação esquerda simples
+                this.rotacaoEsquerdaSimples(noAvlTemp);
+            }else if(fb == 2){
+                // rotacao direita simples
+                this.rotacaoDireitaSimples(noAvlTemp);
+            }
+            noAvlTemp = (NoAVL) noPai.getPai();
         }
 
-        if(noPai.getPai() == null) return;
-        this.balancear((NoAVL) noPai.getPai(), lado);
+        //this.balancear((NoAVL) noPai.getPai(), lado, 'i');
+    }
+
+    public void incrementarFB(NoAVL no, char lado)
+    {
+        if(lado == 'E') no.setFB( no.getFB() + 1 );
+        if(lado == 'D') no.setFB( no.getFB() - 1 );
     }
 
     // IF FB pai = -2 && FB subArvoreDireita <= 0
     private void rotacaoEsquerdaSimples(NoAVL noPai)
     {
         NoAVL subArvoreDireita = (NoAVL) noPai.getFilhoDireito();
-
+        
         if(subArvoreDireita.getFilhoEsquerdo() != null)
         {
             subArvoreDireita.getFilhoEsquerdo().setPai( subArvoreDireita.getPai() );
@@ -75,14 +84,20 @@ public class ArvoreAVL extends ArvoreBinariaDePesquisa {
         }else{
             subArvoreDireita.setPai( (noPai.getPai() != null) ? noPai.getPai() : null );
             subArvoreDireita.setFilhoEsquerdo(noPai);
+            
             noPai.setFilhoDireito(null);
             
-            if(noPai.getPai() != null) noPai.getPai().setFilhoDireito(subArvoreDireita);
-            // verificar se a subarvore eh filho esquero ou direito do pai para adiconar o filho (do noPai) correto
+            if(noPai.getPai() != null && noPai.getPai().getFilhoEsquerdo() == noPai)
+            {
+                noPai.getPai().setFilhoEsquerdo(subArvoreDireita);
+            }else if(noPai.getPai() != null){
+                noPai.getPai().setFilhoDireito(subArvoreDireita);
+            }
+            noPai.setPai(subArvoreDireita);
         }
 
-        int noPaiNovoFb = noPai.getFB() + 1 - (Math.min( subArvoreDireita.getFB(), 0));
-        int subArvoreDireitaNovoFb = subArvoreDireita.getFB() + 1 + (Math.max(noPai.getFB(), 0));
+        int noPaiNovoFb = noPai.getFB() + 1 - Math.min(subArvoreDireita.getFB(), 0);
+        int subArvoreDireitaNovoFb = subArvoreDireita.getFB() + 1 + Math.max(noPai.getFB(), 0);
 
         noPai.setFB(noPaiNovoFb);
         subArvoreDireita.setFB(subArvoreDireitaNovoFb);
@@ -104,15 +119,55 @@ public class ArvoreAVL extends ArvoreBinariaDePesquisa {
         }else{
             subArvoreEsquerda.setPai( (noPai.getPai() != null) ? noPai.getPai() : null );
             subArvoreEsquerda.setFilhoDireito(noPai);
+            
             noPai.setFilhoEsquerdo(null);
-            if(noPai.getPai() != null) noPai.getPai().setFilhoEsquerdo(subArvoreEsquerda);
+            
+            if(noPai.getPai() != null && noPai.getPai().getFilhoEsquerdo() == noPai)
+            {
+                noPai.getPai().setFilhoEsquerdo(subArvoreEsquerda);
+            }else if(noPai.getPai() != null){
+                noPai.getPai().setFilhoDireito(subArvoreEsquerda);
+            }
+            noPai.setPai(subArvoreEsquerda);
         }
 
-        int noPaiNovoFb = noPai.getFB() - 1 - (Math.max(subArvoreEsquerda.getFB(), 0));
-        int subArvoreEsquerdaNovoFb = subArvoreEsquerda.getFB() - 1 + (Math.min(noPaiNovoFb, 0));
+        int noPaiNovoFb = noPai.getFB() - 1 - Math.max(subArvoreEsquerda.getFB(), 0);
+        int subArvoreEsquerdaNovoFb = subArvoreEsquerda.getFB() - 1 + Math.min(noPaiNovoFb, 0);
 
         noPai.setFB(noPaiNovoFb);
         subArvoreEsquerda.setFB(subArvoreEsquerdaNovoFb);
+    }
+
+    // @Override
+    public void exibir()
+    {
+        ArrayList<No> nos = this.nos(1);
+        int totalNos = nos.size();
+        int linhas = (this.altura(this.root) + 1);
+        int [][] tabela = new int[ linhas ][totalNos];
+        String nosString = "\n\n";
+        
+        for(int i = 0; i < totalNos; i++)
+        {
+            nosString += "NO: "+ nos.get(i).getElemento() +" => FB: " + ((NoAVL)nos.get(i)).getFB() + "\n";
+            tabela[ this.profundidade(nos.get(i)) ][i] = nos.get(i).getElemento();
+
+        }
+
+        for(int i = 0; i < linhas; i++)
+        {
+            for(int j = 0; j < totalNos; j++)
+            {
+                if(tabela[i][j] != 0)
+                {
+                    System.out.print(tabela[i][j] + "   "); 
+                }else{
+                    System.out.print("   ");
+                }
+            }
+            System.out.print("\n");
+        }
+        System.out.print(nosString);
     }
 
 }
