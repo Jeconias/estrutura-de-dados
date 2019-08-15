@@ -117,7 +117,7 @@ public class ArvoreAVL extends ArvoreBinariaDePesquisa {
         if(subArvoreEsquerda.getFilhoDireito() != null)
         {
             subArvoreEsquerda.getFilhoDireito().setPai( subArvoreEsquerda.getPai() );
-            noPai.setFilhoEsquerdo( subArvoreEsquerda.getFilhoDireito() );
+            noPai.setFilhoDireito( subArvoreEsquerda.getFilhoDireito() );
             noPai.setPai(subArvoreEsquerda);
             subArvoreEsquerda.setFilhoDireito(noPai);
         }else{
