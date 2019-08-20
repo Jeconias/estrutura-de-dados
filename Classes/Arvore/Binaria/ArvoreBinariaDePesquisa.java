@@ -160,6 +160,7 @@ public class ArvoreBinariaDePesquisa {
         if(this.temFilhoDireito(noAux)){
             this.inOrdem(noAux.getFilhoDireito());
         }
+        return;
     }
 
     protected void posOrdem(No noAux)

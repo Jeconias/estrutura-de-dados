@@ -4,7 +4,7 @@
             "type": "java",
             "name": "CodeLens (Launch) - TesteArvore",
             "request": "launch",
-            "mainClass": "TesteArvore",
+            "mainClass": "Main",
             "projectName": "estrutura-de-dados_bc7c2b1d"
         },
         {
