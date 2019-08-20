@@ -49,8 +49,8 @@ public class Main {
 
       // ARVORE BINARIA
       ArvoreBinariaDePesquisa ArvB = new ArvoreBinariaDePesquisa();
-      ArvB.inserir(10);
-      ArvB.inserir(4);
+      //ArvB.inserir(10);
+      //ArvB.inserir(4);
       //ArvB.inserir(11);
       //ArvB.inserir(15);
       //ArvB.inserir(13);
@@ -61,19 +61,22 @@ public class Main {
       // ARVORE AVL
       ArvoreAVL avl = new ArvoreAVL();
 
-      avl.inserir(50);
-      avl.inserir(20);
-      avl.inserir(80);
-      avl.inserir(70);
-      avl.inserir(90);
-      avl.inserir(60);
-      //avl.inserir(4);
+      avl.inserir(1);
+      avl.inserir(2);
+      avl.inserir(3);
+      avl.inserir(4);
+      avl.inserir(5);
+      avl.inserir(6);
+      avl.inserir(7);
+      avl.inserir(8);
+      avl.inserir(9);
+      avl.inserir(10);
 
 
       avl.exibir();
 
       try {
-        System.out.print( avl.isRoot((NoAVL) avl.procurar(20)) );
+        System.out.print( avl.isRoot((NoAVL) avl.procurar(70)) );
       } catch (ElementoNaoEncontradoException e) {
         System.out.print(e.getMessage());
       }

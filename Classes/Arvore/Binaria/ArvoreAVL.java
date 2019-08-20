@@ -24,49 +24,64 @@ public class ArvoreAVL extends ArvoreBinariaDePesquisa {
         if(novoElemento < elemento)
         {
             noAux.setFilhoEsquerdo(novoFilho);
-            lado = 'E';
         }else{
             noAux.setFilhoDireito(novoFilho);
-            lado = 'D';
         }
 
-        this.balancear(noAux, lado, 'i');
+        this.attFB(novoFilho, 'i');
 
         this.size++;
         return true;
     }
 
-    private void balancear(NoAVL noPai, char lado, char method)
+    public void attFB(NoAVL no, char method)
     {
-        NoAVL noAvlTemp = noPai;
-        while(true)
+        if(this.isRoot(no)) return;
+
+        if(no.getElemento() < no.getPai().getElemento())
         {
-            this.incrementarFB(noAvlTemp, lado);
-
-            if(noAvlTemp.getFB() == 2 && noAvlTemp.getFilhoEsquerdo() != null && ((NoAVL) noAvlTemp.getFilhoEsquerdo()).getFB() < 0)
-            {
-                // rotacao dupla direita
-                System.out.print("ROTAÇAO DUPLOA DIREITA");
-            }else if(noAvlTemp.getFB() == -2 && noAvlTemp.getFilhoDireito() != null && ((NoAVL) noAvlTemp.getFilhoDireito()).getFB() > 0 ){
-                // rotacao dupla esquerda
-                System.out.print("ROTAÇAO DUPLOA ESQUERDA");
-            }else if(noAvlTemp.getFB() == -2){
-                // rotação esquerda simples
-                noAvlTemp = this.rotacaoEsquerdaSimples(noAvlTemp);
-            }else if(noAvlTemp.getFB() == 2){
-                // rotacao direita simples
-                noAvlTemp = this.rotacaoDireitaSimples(noAvlTemp);
-            }
-
-            if(method == 'i' && noAvlTemp.getFB() == 0 || method == 'r' && noAvlTemp.getFB() != 0 || noAvlTemp.getPai() == null) break;
-            noAvlTemp = (NoAVL) noAvlTemp.getPai();
+            ((NoAVL)no.getPai()).setFB( ((NoAVL)no.getPai()).getFB() + 1 );
+        }else{
+            ((NoAVL)no.getPai()).setFB( ((NoAVL)no.getPai()).getFB() - 1 );
         }
+
+        if(((NoAVL)no.getPai()).getFB() == 0 && method == 'i') return;
+
+        if(((NoAVL)no.getPai()).getFB() < -1 || ((NoAVL)no.getPai()).getFB() > 1)
+        {
+            this.balancear((NoAVL) no.getPai());
+        }else{
+            this.attFB((NoAVL) no.getPai(), method);
+        }
+        
+        
+        
+        //if(lado == 'E') no.setFB( no.getFB() + 1 );
+        //if(lado == 'D') no.setFB( no.getFB() - 1 );
     }
 
-    public void incrementarFB(NoAVL no, char lado)
+    private void balancear(NoAVL noPai)
     {
-        if(lado == 'E') no.setFB( no.getFB() + 1 );
-        if(lado == 'D') no.setFB( no.getFB() - 1 );
+            if(noPai.getFB() == 2 && noPai.getFilhoEsquerdo() != null && ((NoAVL) noPai.getFilhoEsquerdo()).getFB() < 0)
+            {
+                // rotacao dupla direita
+                //System.out.print("ROTAÇAO DUPLA DIREITA");
+                this.rotacaoEsquerdaSimples((NoAVL)noPai.getFilhoEsquerdo());
+                this.rotacaoDireitaSimples(noPai);
+            }else if(noPai.getFB() == -2 && noPai.getFilhoDireito() != null && ((NoAVL) noPai.getFilhoDireito()).getFB() > 0 ){
+                // rotacao dupla esquerda
+                //System.out.print("ROTAÇAO DUPLA ESQUERDA");
+                this.rotacaoDireitaSimples((NoAVL)noPai.getFilhoDireito());
+                this.rotacaoEsquerdaSimples(noPai);
+            }else if(noPai.getFB() == -2){
+                // rotação esquerda simples
+                this.rotacaoEsquerdaSimples(noPai);
+            }else if(noPai.getFB() == 2){
+                // rotacao direita simples
+                this.rotacaoDireitaSimples(noPai);
+            }
+
+            //if(method == 'i' && noAvlTemp.getFB() == 0 || method == 'r' && noAvlTemp.getFB() != 0 || noAvlTemp.getPai() == null) break;
     }
 
     // IF FB pai = -2 && FB subArvoreDireita <= 0
