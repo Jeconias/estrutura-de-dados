@@ -3,11 +3,10 @@ package Classes.Ordenacao;
 public class Heap{
 	    private int[] heapArray;
 	    private int heapSize;
-	    private int capacity;
+		
 	    public Heap(int cap){
 	        heapSize = 0;
 	        heapArray = new int[cap+2];
-	        capacity = cap;
 	    }
 	    public boolean isEmpty(){
 	        return heapSize == 0;

@@ -8,7 +8,6 @@ public class ArvoreBinariaDePesquisa {
 
     protected No root                   = null;
     protected ArrayList<No> listaNos    = null;
-    private int cacheNos                = -1;
     protected int size                  = 0;
 
     public ArvoreBinariaDePesquisa(){}
@@ -47,7 +46,7 @@ public class ArvoreBinariaDePesquisa {
         return noAux;
     }
 
-    public boolean remover(int elemento)
+    public boolean removerr(int elemento)
     {
         No noAux = this.pesquisar(elemento, this.root);
         int elementoAtual = noAux.getElemento();
@@ -111,7 +110,7 @@ public class ArvoreBinariaDePesquisa {
                 auxFilho.getFilhoEsquerdo();
             }
             int elementoFilho = auxFilho.getElemento();
-            this.remover(elementoFilho);
+            this.removerr(elementoFilho);
             noAux.setElemento(elementoFilho);
             this.size--;
             return true;
@@ -121,13 +120,11 @@ public class ArvoreBinariaDePesquisa {
 
     public ArrayList<No> nos(int ordem)
     {
-        if(this.cacheNos == ordem && this.size == this.listaNos.size()) return this.listaNos;
         this.listaNos = new ArrayList<No>();
 
         if(ordem == 0) this.preOrdem(this.root);
         if(ordem == 1) this.inOrdem(this.root);
         if(ordem == 2) this.posOrdem(this.root);
-        this.cacheNos = ordem;
 
         return this.listaNos;
     }
@@ -214,22 +211,22 @@ public class ArvoreBinariaDePesquisa {
         return (no == this.root) ? true : false;
     }
 
-    private Boolean temFilhoEsquerdo(No noAux)
+    protected Boolean temFilhoEsquerdo(No noAux)
     {
         return (noAux.getFilhoEsquerdo() != null) ? true : false;
     }
 
-    private Boolean temFilhoDireito(No noAux)
+    protected Boolean temFilhoDireito(No noAux)
     {
         return (noAux.getFilhoDireito() != null) ? true : false;
     }
 
-    private int totalFilhos(No noAux)
+    protected int totalFilhos(No noAux)
     {
         return (this.temFilhoDireito(noAux) && this.temFilhoEsquerdo(noAux)) ? 2 : (this.ehExterno(noAux)) ? 0 : 1;
     }
 
-    private Boolean ehExterno(No noAux) 
+    protected Boolean ehExterno(No noAux) 
     {
         return (this.temFilhoEsquerdo(noAux) || this.temFilhoDireito(noAux)) ? false : true;
     }

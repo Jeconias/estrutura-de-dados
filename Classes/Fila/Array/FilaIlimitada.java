@@ -10,7 +10,6 @@ public class FilaIlimitada implements InterfaceFilaIlimitada {
 
     private int inicio = 0;
     private int fim = 0;
-    private int tamanho = 0;
 
     public FilaIlimitada()
     {

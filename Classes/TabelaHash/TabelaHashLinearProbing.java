@@ -92,7 +92,6 @@ public class TabelaHashLinearProbing {
     public ArrayList<Integer> keys()
     {
         int listSize = this.list.length;
-        No noTmp;
         ArrayList<Integer> chaves = new ArrayList<Integer>();
         
         for(int i = 0; i < listSize; i++)
