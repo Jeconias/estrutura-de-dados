@@ -17,7 +17,6 @@ public class ArvoreAVL extends ArvoreBinariaDePesquisa {
         NoAVL noAux = (NoAVL) this.pesquisar(novoElemento, this.root);
         NoAVL novoFilho = new NoAVL(novoElemento, 0, null, null, noAux);
         int elemento = noAux.getElemento();
-        char lado;
 
         if(novoElemento == elemento) return false; // O ELEMENTO JA EXISTE NA ARVORE
         
@@ -34,27 +33,131 @@ public class ArvoreAVL extends ArvoreBinariaDePesquisa {
         return true;
     }
 
+     //@Override
+    public boolean remover(int elemento)
+    {
+        NoAVL noAux = (NoAVL) this.pesquisar(elemento, this.root);
+        int elementoAtual = noAux.getElemento();
+
+        if(elementoAtual != elemento) return false; // O ELEMENTO PARA REMOVER NAO EXISTE
+
+        // REMOÇÃO QUANDO O NÓ NÃO TEM FILHO
+        if(this.ehExterno(noAux))
+        {
+            if(this.root == noAux)
+            {
+                this.root = null;
+                this.size--;
+                return true;
+            }else{
+
+                this.attFB(noAux, 'r');
+
+                if(noAux.getPai().getFilhoDireito() == noAux)
+                {
+                    noAux.getPai().setFilhoDireito(null);
+                }else if(noAux.getPai().getFilhoEsquerdo() == noAux)
+                {
+                    noAux.getPai().setFilhoEsquerdo(null);
+                }
+                noAux.setPai(null);
+                this.size--;
+                return true;
+            }
+        }
+
+        // REMOVER O NÓ QUANDO POSSUI 1 FILHO
+        if(this.totalFilhos(noAux) == 1)
+        {
+            No noAuxFilho;
+            if(this.root == noAux)
+            {
+                noAuxFilho = (this.temFilhoDireito(this.root)) ? this.root.getFilhoDireito() : this.root.getFilhoEsquerdo();
+                noAuxFilho.setPai(null);
+
+                this.attFB(noAux, 'r');
+
+                this.root = noAuxFilho;
+                this.size--;
+                return true;
+            }else{
+
+                this.attFB(noAux, 'r');
+
+                noAuxFilho = (this.temFilhoDireito(noAux)) ? noAux.getFilhoDireito() : noAux.getFilhoEsquerdo();
+                noAuxFilho.setPai(noAux.getPai());
+                if(noAux.getPai().getFilhoDireito() == noAux)
+                {
+                    noAux.getPai().setFilhoDireito(noAuxFilho);
+                }else{
+                    noAux.getPai().setFilhoEsquerdo(noAuxFilho);
+                }
+
+                noAux.setPai(null);
+                noAux.setFilhoDireito(null);
+                noAux.setFilhoEsquerdo(null);
+                return true;
+            }
+
+        // REMOÇÃO QUANDO O NÓ TEM 2 FILHOS
+        }else if(this.totalFilhos(noAux) == 2){
+
+            No auxFilho = noAux.getFilhoDireito();
+            while(auxFilho.getFilhoEsquerdo() != null)
+            {
+                auxFilho = auxFilho.getFilhoEsquerdo();
+            }
+            int elementoFilho = auxFilho.getElemento();
+            this.remover(elementoFilho);
+            noAux.setElemento(elementoFilho);
+            return true;
+        }
+        return false;
+    }
+
     public void attFB(NoAVL no, char method)
     {
-        if(this.isRoot(no)) return;
-
-        if(no.getElemento() < no.getPai().getElemento())
+        if(method == 'i')
         {
-            ((NoAVL)no.getPai()).setFB( ((NoAVL)no.getPai()).getFB() + 1 );
-        }else{
-            ((NoAVL)no.getPai()).setFB( ((NoAVL)no.getPai()).getFB() - 1 );
-        }
+            if(this.isRoot(no)) return;
 
-        if(((NoAVL)no.getPai()).getFB() == 0 && method == 'i') return;
+            if(no.getElemento() < no.getPai().getElemento())
+            {
+                ((NoAVL)no.getPai()).setFB( ((NoAVL)no.getPai()).getFB() + 1 );
+            }else{
+                ((NoAVL)no.getPai()).setFB( ((NoAVL)no.getPai()).getFB() - 1 );
+            }
 
-        if(((NoAVL)no.getPai()).getFB() < -1 || ((NoAVL)no.getPai()).getFB() > 1)
-        {
-            this.balancear((NoAVL) no.getPai());
+            if(((NoAVL)no.getPai()).getFB() == 0 && method == 'i') return;
+
+            if(((NoAVL)no.getPai()).getFB() < -1 || ((NoAVL)no.getPai()).getFB() > 1)
+            {
+                this.balancear((NoAVL) no.getPai());
+            }else{
+                this.attFB((NoAVL) no.getPai(), method);
+            }
+
         }else{
-            this.attFB((NoAVL) no.getPai(), method);
+
+            if(this.isRoot(no)) return;
+
+            if(no.getElemento() < no.getPai().getElemento())
+            {
+                ((NoAVL)no.getPai()).setFB( ((NoAVL)no.getPai()).getFB() - 1 );
+            }else{
+                ((NoAVL)no.getPai()).setFB( ((NoAVL)no.getPai()).getFB() + 1 );
+            }
+
+            if(((NoAVL)no.getPai()).getFB() != 0 && method == 'r') return;
+
+            if(((NoAVL)no.getPai()).getFB() < -1 || ((NoAVL)no.getPai()).getFB() > 1)
+            {
+                this.balancear((NoAVL) no.getPai());
+            }else{
+                this.attFB((NoAVL) no.getPai(), method);
+            }
+
         }
-        
-        
         
         //if(lado == 'E') no.setFB( no.getFB() + 1 );
         //if(lado == 'D') no.setFB( no.getFB() - 1 );
@@ -85,30 +188,30 @@ public class ArvoreAVL extends ArvoreBinariaDePesquisa {
     }
 
     // IF FB pai = -2 && FB subArvoreDireita <= 0
-    private NoAVL rotacaoEsquerdaSimples(NoAVL noPai)
+    private void rotacaoEsquerdaSimples(NoAVL noPai)
     {
         NoAVL subArvoreDireita = (NoAVL) noPai.getFilhoDireito();
-        
-        if(subArvoreDireita.getFilhoEsquerdo() != null)
+        NoAVL subFilhoEsquerdo = (NoAVL) subArvoreDireita.getFilhoEsquerdo();
+
+        if(subFilhoEsquerdo != null)
         {
-            subArvoreDireita.getFilhoEsquerdo().setPai( subArvoreDireita.getPai() );
-            noPai.setFilhoDireito( subArvoreDireita.getFilhoEsquerdo() );
-            noPai.setPai(subArvoreDireita);
+            noPai.setFilhoDireito( subFilhoEsquerdo );
             subArvoreDireita.setFilhoEsquerdo(noPai);
+            subArvoreDireita.setPai(noPai.getPai());
+            subFilhoEsquerdo.setPai(noPai);
         }else{
-            subArvoreDireita.setPai( (noPai.getPai() != null) ? noPai.getPai() : null );
-            subArvoreDireita.setFilhoEsquerdo(noPai);
-            
             noPai.setFilhoDireito(null);
-            
-            if(noPai.getPai() != null && noPai.getPai().getFilhoEsquerdo() == noPai)
-            {
-                noPai.getPai().setFilhoEsquerdo(subArvoreDireita);
-            }else if(noPai.getPai() != null){
-                noPai.getPai().setFilhoDireito(subArvoreDireita);
-            }
-            noPai.setPai(subArvoreDireita);
+            subArvoreDireita.setFilhoEsquerdo(noPai);
+            subArvoreDireita.setPai(noPai.getPai());
         }
+
+        if(noPai.getPai() != null && noPai.getPai().getFilhoEsquerdo() == noPai){
+            noPai.getPai().setFilhoEsquerdo(subArvoreDireita);
+        }else if(noPai.getPai() != null){
+            noPai.getPai().setFilhoDireito(subArvoreDireita);
+        }
+
+        noPai.setPai(subArvoreDireita);
 
         int noPaiNovoFb = noPai.getFB() + 1 - Math.min(subArvoreDireita.getFB(), 0);
         int subArvoreDireitaNovoFb = subArvoreDireita.getFB() + 1 + Math.max(noPai.getFB(), 0);
@@ -120,7 +223,6 @@ public class ArvoreAVL extends ArvoreBinariaDePesquisa {
             this.root = subArvoreDireita;
             subArvoreDireita.setPai(null);
         }
-        return subArvoreDireita;
     }
 
     // IF FB pai = 2 && FB subArvoreEsquerda >= 0
@@ -128,27 +230,27 @@ public class ArvoreAVL extends ArvoreBinariaDePesquisa {
     private NoAVL rotacaoDireitaSimples(NoAVL noPai)
     {
         NoAVL subArvoreEsquerda = (NoAVL) noPai.getFilhoEsquerdo();
+        NoAVL subFilhoDireito = (NoAVL) subArvoreEsquerda.getFilhoDireito();
 
-        if(subArvoreEsquerda.getFilhoDireito() != null)
+        if(subFilhoDireito != null)
         {
-            subArvoreEsquerda.getFilhoDireito().setPai( subArvoreEsquerda.getPai() );
-            noPai.setFilhoDireito( subArvoreEsquerda.getFilhoDireito() );
-            noPai.setPai(subArvoreEsquerda);
+            noPai.setFilhoEsquerdo(subFilhoDireito);
             subArvoreEsquerda.setFilhoDireito(noPai);
+            subArvoreEsquerda.setPai(noPai.getPai());
+            subFilhoDireito.setPai(noPai);
         }else{
-            subArvoreEsquerda.setPai( (noPai.getPai() != null) ? noPai.getPai() : null );
-            subArvoreEsquerda.setFilhoDireito(noPai);
-            
             noPai.setFilhoEsquerdo(null);
-            
-            if(noPai.getPai() != null && noPai.getPai().getFilhoEsquerdo() == noPai)
-            {
-                noPai.getPai().setFilhoEsquerdo(subArvoreEsquerda);
-            }else if(noPai.getPai() != null){
-                noPai.getPai().setFilhoDireito(subArvoreEsquerda);
-            }
-            noPai.setPai(subArvoreEsquerda);
+            subArvoreEsquerda.setFilhoDireito(noPai);
+            subArvoreEsquerda.setPai(noPai.getPai());
         }
+
+        if(noPai.getPai() != null && noPai.getPai().getFilhoDireito() == noPai){
+            noPai.getPai().setFilhoDireito(subArvoreEsquerda);
+        }else if(noPai.getPai() != null){
+            noPai.getPai().setFilhoEsquerdo(subArvoreEsquerda);
+        }
+        
+        noPai.setPai(subArvoreEsquerda);
 
         int noPaiNovoFb = noPai.getFB() - 1 - Math.max(subArvoreEsquerda.getFB(), 0);
         int subArvoreEsquerdaNovoFb = subArvoreEsquerda.getFB() - 1 + Math.min(noPaiNovoFb, 0);
