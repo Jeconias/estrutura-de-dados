@@ -1,7 +1,6 @@
 package Interfaces;
 
 import Exceptions.TADVectorException;
-import Classes.Vector.Array.TADVector;
 
 public interface InterfaceTADVector {
 
