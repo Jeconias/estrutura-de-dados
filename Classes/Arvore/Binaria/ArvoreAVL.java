@@ -128,7 +128,7 @@ public class ArvoreAVL extends ArvoreBinariaDePesquisa {
                 ((NoAVL)no.getPai()).setFB( ((NoAVL)no.getPai()).getFB() - 1 );
             }
 
-            if(((NoAVL)no.getPai()).getFB() == 0 && method == 'i') return;
+            if(((NoAVL)no.getPai()).getFB() == 0) return;
 
             if(((NoAVL)no.getPai()).getFB() < -1 || ((NoAVL)no.getPai()).getFB() > 1)
             {
@@ -148,12 +148,11 @@ public class ArvoreAVL extends ArvoreBinariaDePesquisa {
                 ((NoAVL)no.getPai()).setFB( ((NoAVL)no.getPai()).getFB() + 1 );
             }
 
-            if(((NoAVL)no.getPai()).getFB() != 0 && method == 'r') return;
-
             if(((NoAVL)no.getPai()).getFB() < -1 || ((NoAVL)no.getPai()).getFB() > 1)
             {
                 this.balancear((NoAVL) no.getPai());
             }else{
+                if(((NoAVL)no.getPai()).getFB() != 0) return;
                 this.attFB((NoAVL) no.getPai(), method);
             }
 
