@@ -6,14 +6,33 @@ public class Main {
   {
 
       // ARVORE RN
-      ArvoreRN arn = new ArvoreRN(1);
-      arn.inserir(2);
-      arn.inserir(3);
-      arn.inserir(4);
-      arn.inserir(5);
-      arn.inserir(6);
-      arn.inserir(7);
-      arn.inserir(8);
+      ArvoreRN arn = new ArvoreRN(10);
+
+      arn.inserir(20);
+      arn.exibir();
+      System.out.println(ArvoreRN.ANSI_RESET);
+      arn.inserir(30);
+      arn.exibir();
+      System.out.println(ArvoreRN.ANSI_RESET);
+      arn.inserir(40);
+      arn.exibir();
+      System.out.println(ArvoreRN.ANSI_RESET);
+      arn.inserir(50);
+      arn.exibir();
+      System.out.println(ArvoreRN.ANSI_RESET);
+      arn.inserir(60);
+      arn.exibir();
+      System.out.println(ArvoreRN.ANSI_RESET);
+      arn.inserir(70);
+      arn.exibir();
+      System.out.println(ArvoreRN.ANSI_RESET);
+      arn.inserir(80);
+      arn.exibir();
+      System.out.println(ArvoreRN.ANSI_RESET);
+      arn.inserir(90);
+      arn.exibir();
+      System.out.println(ArvoreRN.ANSI_RESET);
+      arn.inserir(75);
 
       arn.exibir();
 

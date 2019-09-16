@@ -8,6 +8,7 @@ public class ArvoreRN {
     public static final String ANSI_RESET = "\u001B[0m";
 
     private NoRN raiz;
+    private int tamanho;
     private ArrayList<NoRN> listaNos;
     
     public ArvoreRN(Object novoElemento){
@@ -26,16 +27,22 @@ public class ArvoreRN {
 
         novoNoRN.setPai(peRes);
         this.casosInsercao(novoNoRN);
-
+        this.tamanho++;
         return novoNoRN;
     }
 
     public void casosInsercao(NoRN novoNoRN)
     {
         String rotacao;
+
         // CASO 1: Se o pai é negro, não precisa fazer nada.
-        if(novoNoRN.getPai() == null || novoNoRN.getPai().getTipo() == 'N') return;
-        
+        if(novoNoRN.getPai() == null || novoNoRN.getPai().getTipo() == 'N'){
+            System.out.println("testando "+novoNoRN.getElemento()+"caso 1");
+            return;
+        }
+        if((Integer) novoNoRN.getElemento() == 80){
+            System.out.println(novoNoRN.getLado());
+        }
         // CASO 2: Se o pai do novo nó é rubro e o avó do novo nó é negro e o tio do novo nó é rubro
         if(novoNoRN.getPai().getTipo()      == 'R'
             && novoNoRN.getAvo()            != null 
@@ -43,20 +50,23 @@ public class ArvoreRN {
             && novoNoRN.getTio()            != null 
             && novoNoRN.getTio().getTipo()  == 'R')
             {
+                System.out.println("testando "+novoNoRN.getElemento()+" caso 2");
                 // recolocação
                 novoNoRN.getPai().setTipo('N').getIrmao().setTipo('N').getPai().setTipo('R');
+                if(novoNoRN.getAvo() == this.raiz) novoNoRN.getAvo().setTipo('N');
 
                 //Se o pai do avó do novo nó for rubro o processo deverá ser repetido fazendo novo_nó receber a cor do avó
                 if(novoNoRN.getAvo().getPai() != null
                     && novoNoRN.getAvo().getPai().getTipo() == 'R')
                     {
-                        novoNoRN.setTipo( novoNoRN.getAvo().getTipo() );
+                        System.out.println("testando "+novoNoRN.getElemento()+"caso 2b");
+                        this.casosInsercao(novoNoRN.getAvo());
                     }
-
-                if(novoNoRN.getAvo() == this.raiz) novoNoRN.getAvo().setTipo('N');
+                return;
             }
         
             rotacao = this.detectarRotacao(novoNoRN);
+            System.out.println(rotacao);
             this.rotacionar(rotacao, novoNoRN);
             this.casosInsercao(novoNoRN.getPai());
     }
@@ -115,11 +125,11 @@ public class ArvoreRN {
     {
         if(rotacaoLado.equals("RDD"))
         {
-            this.rotacaoSimples("RES", no.getAvo());
-            this.rotacaoSimples("RDS", no);
+            this.rotacaoSimples("RES", no.getPai());
+            this.rotacaoSimples("RDS", no.getPai());
         }else{
-            this.rotacaoSimples("RDS", no.getAvo());
-            this.rotacaoSimples("RES", no);
+            this.rotacaoSimples("RDS", no.getPai());
+            this.rotacaoSimples("RES", no.getPai());
         }
     }
 
@@ -133,16 +143,28 @@ public class ArvoreRN {
             if(no.getPai().getIrmao() == null || no.getPai().getIrmao().getTipo() == 'N')
             {
                 //Caso 3a: Rotação direito simples
-                if(no.getLado() == -1 && no.getPai().getLado() == -1) return "RDS";
+                if(no.getLado() == -1 && no.getPai().getLado() == -1) {
+                    System.out.println("testando " + no.getElemento() + " RDS");
+                    return "RDS";
+                }
                 
                 //Caso 3b: Rotação esquerda simples
-                if(no.getLado() == 1 && no.getPai().getLado() == 1) return "RES";
+                if(no.getLado() == 1 && no.getPai().getLado() == 1){
+                    System.out.println("testando "+no.getElemento()+" RES");
+                    return "RES";
+                } 
 
                 //Caso 3c: Rotação esquerda dupla
-                if(no.getLado() == -1 && no.getPai().getLado() == 1) return "RED";
+                if(no.getLado() == -1 && no.getPai().getLado() == 1){
+                    System.out.println("testando "+no.getElemento()+" RED");
+                    return "RED";
+                } 
 
                 //Caso 3d: Rotação direito dupla
-                if(no.getLado() == 1 && no.getPai().getLado() == -1) return "RDD";
+                if(no.getLado() == 1 && no.getPai().getLado() == -1) {
+                    System.out.println("testando " + no.getElemento() + "RDD");
+                    return "RDD";
+                }
             }
         }
         return "NPF"; //nada para fazer
@@ -245,6 +267,11 @@ public class ArvoreRN {
         return 1+h;
     }
 
+    public int tamanho()
+    {
+        return this.tamanho;
+    }
+
     public int profundidade(NoRN noAux)
     {
         if(this.raiz == noAux) return 0;
@@ -270,12 +297,12 @@ public class ArvoreRN {
                 NoRN tmp = tabela[i][j];
                 if(tmp != null)
                 {
-                    System.out.print(tmp.__toString() + "   "); 
+                    System.out.print(tmp.__toString() + "  "); 
                 }else{
-                    System.out.print("   ");
+                    System.out.print("    ");
                 }
             }
-            System.out.print("\n");
+            System.out.print("\n\n\n");
         }
     }
 }
