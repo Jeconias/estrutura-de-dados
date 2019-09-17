@@ -389,14 +389,108 @@ public class ArvoreRN {
             }
             System.out.print("\n\n\n");
         }
+        System.out.print(ArvoreRN.ANSI_RESET);
     }
 
 
-
-    private void removerCaso1(NoRN no)
+    /* Seja "remover" o nó a ser removido. Sendo "remover" rubro e "sucessor", sucessor de "remover", também rubro.
+     * Não precisa fazer nada.
+     */
+    private boolean removerSitucao1(NoRN remover, NoRN sucessor)
     {
-        
+        if(remover.getTipo() == 'R' && sucessor.getTipo() == 'R') return false;
+        return true;
     }
+    /**
+     * Se "remover" é negro e "sucessor" é rubro, pinte "sucessor" de negro e pare.
+     */
+    private boolean removerSitucao2(NoRN remover, NoRN sucessor)
+    {
+        if(remover.getTipo() == 'N' && sucessor.getTipo() == 'R') return true;
+        return false;
+    }
+
+    /**
+     * Se "remover" é negro e "remover" tem irmão w rubro e pai negro. Marque ele com um duplo negro e
+     * faça o seguinte:
+     * • Faça uma rotação simples esquerda
+     * • Pinte w de negro
+     * • Pinte pai de "remover" de rubro
+    */
+    private boolean removerSitucao3Caso1(NoRN remover)
+    {
+        if(remover.getTipo() == 'N' && remover.getIrmao().getTipo() == 'R' && remover.getPai() == 'N') return true;
+        return false;
+    }
+
+    /**
+     * Se "remover" é negro, tem irmão w negro com filhos negros e pai negro. 
+     * faça o seguinte:
+     * • Pinte o irmão w de rubro
+     */
+    private boolean removerSitucao3Caso2a(NoRN remover)
+    {
+        if(remover.getTipo() == 'N' 
+            && remover.getPai().getTipo() == 'N' 
+            && remover.getIrmao().getTipo() == 'N' 
+            && this.totalFilhos(remover.getIrmao()) == 2
+            && remover.getIrmao().getFilhoDireito().getTipo() == 'N'
+            && remover.getIrmao().getFilhoEsquerdo().getTipo() == 'N') return true;
+        return false;
+    }
+
+    /**
+     * Se "remover" é negro, tem irmão w negro
+     * com filhos negros e pai rubro. 
+     * faça o seguinte:
+     * • Pinte o irmão w de rubro e o pai de "remover" de negro
+     */
+    private boolean removerSitucao3Caso2b(NoRN remover)
+    {
+        if(remover.getTipo() == 'N' 
+            && remover.getPai().getTipo() == 'R' 
+            && remover.getIrmao().getTipo() == 'N' 
+            && this.totalFilhos(remover.getIrmao()) == 2
+            && remover.getIrmao().getFilhoDireito().getTipo() == 'N'
+            && remover.getIrmao().getFilhoEsquerdo().getTipo() == 'N') return true;
+        return false;
+    }
+
+    /**
+     * Se "remover" é negro, tem irmão w negro, tem pai de qualquer cor (rubro ou negro), tem
+     * irmão w com filho esquerdo rubro e irmão w com filho direito negro. 
+     * faça o seguinte:
+     * • Rotação simples direita em w
+     * • Trocar as cores de w com seu filho esquerdo 
+     */
+    private boolean removerSitucao3Caso3(NoRN remover)
+    {
+        if(remover.getTipo() == 'N'
+            && remover.getIrmao().getTipo() == 'N'
+            && remover.getIrmao().getFilhoEsquerdo().getTipo() == 'R'
+            && remover.getIrmao().getFilhoDireito().getTipo() == 'N') return true;
+        return false;
+    }
+
+    /**
+     * Se "remover" é negro, tem irmão w negro, tem pai de qualquer cor (rubro ou negro), tem
+     * irmão w com filho esquerdo qualquer cor e irmão w com filho direito rubro. 
+     * faça o seguinte:
+     * • Rotação simples a esquerda
+     * • Pinte o pai de negro
+     * • w igual a cor anterior do pai de x
+     * • Pinte o filho direito de w de negro
+     */
+    private boolean removerSitucao3Caso4(NoRN remover)
+    {
+        if(remover.getTipo() == 'N'
+            && remover.getIrmao().getTipo() == 'N'
+            && remover.getIrmao().getFilhoDireito().getTipo() == 'R') return true;
+        return false;
+    }
+
+
+
 
 
 

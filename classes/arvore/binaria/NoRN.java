@@ -4,6 +4,7 @@ public class NoRN {
 
 	public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";
+	public static final String ANSI_WHITE = "\033[0;37m";
 
 	private Object 	elemento 		= null;
 	private char 	tipo 			= 'J';
@@ -96,7 +97,7 @@ public class NoRN {
 
 	public String __toString()
 	{
-		return (this.tipo == 'R' ? ANSI_RED : ANSI_BLACK) + this.elemento;
+		return (this.tipo == 'R' ? ANSI_RED : ANSI_WHITE) + this.elemento;
 	}
 
 }
