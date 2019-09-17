@@ -38,7 +38,6 @@ public class ArvoreRN {
         NoRN remover = this.pesquisar(elemento, this.raiz);
         if(ObjectCompare.compare(elemento, remover.getElemento()) !=  0) return null; // O valor não existe
 
-
         // REMOÇÃO QUANDO O NÓ NÃO TEM FILHO
         if(this.ehExterno(remover))
         {
@@ -48,6 +47,8 @@ public class ArvoreRN {
                 this.tamanho--;
                 return remover;
             }else{
+
+                this.detectarCasoRemocao(remover);
 
                 if(remover.getPai().getFilhoDireito() == remover)
                 {
@@ -76,6 +77,8 @@ public class ArvoreRN {
                 return remover;
             }else{
 
+                this.detectarCasoRemocao(remover);
+
                 noAuxFilho = (this.temFilhoDireito(remover)) ? remover.getFilhoDireito() : remover.getFilhoEsquerdo();
                 noAuxFilho.setPai(remover.getPai());
 
@@ -101,9 +104,15 @@ public class ArvoreRN {
                 auxFilho = auxFilho.getFilhoEsquerdo();
             }
             Object elementoFilho = auxFilho.getElemento();
-
             this.remover(elementoFilho);
             remover.setElemento(elementoFilho);
+            
+            if(!this.removerSitucao1(remover, auxFilho) && this.removerSitucao2(remover, auxFilho)){
+               auxFilho.setTipo('N');
+            }else{
+                auxFilho.setTipo('J');
+                this.remover(auxFilho);
+            }
             return remover;
         }
         return null;
@@ -149,6 +158,29 @@ public class ArvoreRN {
             System.out.println(rotacao);
             this.rotacionar(rotacao, novoNoRN);
             this.casosInsercao(novoNoRN.getPai());
+    }
+
+    private void detectarCasoRemocao(NoRN remover)
+    {
+        if(this.removerSitucao3Caso1(remover)){
+            this.rotacaoSimples("RES", remover.getPai());
+            remover.getIrmao().setTipo('N');
+            remover.getPai().setTipo('R');
+            // ? remover.setTipo('J');
+            this.detectarCasoRemocao(remover);
+        }else if(this.removerSitucao3Caso2a(remover)){
+            remover.getIrmao().setTipo('R');
+            this.detectarCasoRemocao(remover.getPai());
+        }else if(this.removerSitucao3Caso2b(remover)){
+
+
+        }else if(this.removerSitucao3Caso3(remover)){
+        
+        }else if(this.removerSitucao3Caso4(remover)){
+
+        }else if(this.removerSitucao4(remover)){
+
+        }
     }
 
     public void rotacionar(String tipoRotacao, NoRN no)
@@ -398,8 +430,8 @@ public class ArvoreRN {
      */
     private boolean removerSitucao1(NoRN remover, NoRN sucessor)
     {
-        if(remover.getTipo() == 'R' && sucessor.getTipo() == 'R') return false;
-        return true;
+        if(remover.getTipo() == 'R' && sucessor.getTipo() == 'R') return true;
+        return false;
     }
     /**
      * Se "remover" é negro e "sucessor" é rubro, pinte "sucessor" de negro e pare.
@@ -419,7 +451,7 @@ public class ArvoreRN {
     */
     private boolean removerSitucao3Caso1(NoRN remover)
     {
-        if(remover.getTipo() == 'N' && remover.getIrmao().getTipo() == 'R' && remover.getPai() == 'N') return true;
+        if(remover.getTipo() == 'N' && remover.getIrmao().getTipo() == 'R' && remover.getPai().getTipo() == 'N') return true;
         return false;
     }
 
@@ -489,10 +521,19 @@ public class ArvoreRN {
         return false;
     }
 
-
-
-
-
+    /**
+     * "remover" é rubro e "sucessor" é negro.
+     * – Similar à situação 3. 
+     * faça o seguinte:
+     * • Pinte "remover" de rubro
+     * • Proceda como na situação 3
+     *
+     */
+    private boolean removerSitucao4(NoRN remover, NoRN sucessor)
+    {
+        if(remover.getTipo() == 'R' && sucessor.getTipo() == 'N') return true;
+        return false;
+    }
 
 }
 
