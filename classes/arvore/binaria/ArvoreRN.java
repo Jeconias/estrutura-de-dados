@@ -31,6 +31,86 @@ public class ArvoreRN {
         return novoNoRN;
     }
 
+
+    public NoRN remover(Object elemento)
+    {
+
+        NoRN remover = this.pesquisar(elemento, this.raiz);
+        if(ObjectCompare.compare(elemento, remover.getElemento()) !=  0) return null; // O valor não existe
+
+
+        // REMOÇÃO QUANDO O NÓ NÃO TEM FILHO
+        if(this.ehExterno(remover))
+        {
+            if(this.raiz == remover)
+            {
+                this.raiz = null;
+                this.tamanho--;
+                return remover;
+            }else{
+
+                if(remover.getPai().getFilhoDireito() == remover)
+                {
+                    remover.getPai().setFilhoDireito(null);
+                }else if(remover.getPai().getFilhoEsquerdo() == remover)
+                {
+                    remover.getPai().setFilhoEsquerdo(null);
+                }
+                remover.setPai(null);
+                this.tamanho--;
+                return remover;
+            }
+        }
+
+        // REMOVER O NÓ QUANDO POSSUI 1 FILHO
+        if(this.totalFilhos(remover) == 1)
+        {
+            NoRN noAuxFilho;
+            if(this.raiz == remover)
+            {
+                noAuxFilho = (this.temFilhoDireito(this.raiz)) ? this.raiz.getFilhoDireito() : this.raiz.getFilhoEsquerdo();
+                noAuxFilho.setPai(null);
+
+                this.raiz = noAuxFilho;
+                this.tamanho--;
+                return remover;
+            }else{
+
+                noAuxFilho = (this.temFilhoDireito(remover)) ? remover.getFilhoDireito() : remover.getFilhoEsquerdo();
+                noAuxFilho.setPai(remover.getPai());
+
+                if(remover.getPai().getFilhoDireito() == remover)
+                {
+                    remover.getPai().setFilhoDireito(noAuxFilho);
+                }else{
+                    remover.getPai().setFilhoEsquerdo(noAuxFilho);
+                }
+
+                remover.setPai(null);
+                remover.setFilhoDireito(null);
+                remover.setFilhoEsquerdo(null);
+                return remover;
+            }
+
+        // REMOÇÃO QUANDO O NÓ TEM 2 FILHOS
+        }else if(this.totalFilhos(remover) == 2){
+
+            NoRN auxFilho = remover.getFilhoDireito();
+            while(auxFilho.getFilhoEsquerdo() != null)
+            {
+                auxFilho = auxFilho.getFilhoEsquerdo();
+            }
+            Object elementoFilho = auxFilho.getElemento();
+
+            this.remover(elementoFilho);
+            remover.setElemento(elementoFilho);
+            return remover;
+        }
+        return null;
+    }
+
+
+
     public void casosInsercao(NoRN novoNoRN)
     {
         String rotacao;
@@ -178,6 +258,11 @@ public class ArvoreRN {
         return inicioDaPesquisa;
     }
 
+    private int totalFilhos(NoRN noAux)
+    {
+        return (this.temFilhoDireito(noAux) && this.temFilhoEsquerdo(noAux)) ? 2 : (this.ehExterno(noAux)) ? 0 : 1;
+    }
+
     private Boolean ehExterno(NoRN noAux) 
     {
         return (this.temFilhoEsquerdo(noAux) || this.temFilhoDireito(noAux)) ? false : true;
@@ -305,5 +390,15 @@ public class ArvoreRN {
             System.out.print("\n\n\n");
         }
     }
+
+
+
+    private void removerCaso1(NoRN no)
+    {
+        
+    }
+
+
+
 }
 
