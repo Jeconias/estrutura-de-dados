@@ -1,34 +1,32 @@
-import classes.arvore.binaria.*;
+import classes.grafo.*;
+import exceptions.JokerTypeNotFound;
+import exceptions.TableIndexException;
 
 public class Main {
 
-  public static void main (String args[])
-  {
+  public static void main(String args[]) {
 
-      // ARVORE RN
-      ArvoreRN arn = new ArvoreRN(10);
+    Vertice a, b, c, d;
+    Grafo g = new Grafo();
+    a = g.setVertice("a");
+    b = g.setVertice("b");
+    c = g.setVertice("c");
 
-      arn.inserir(20);
-      arn.inserir(30);
-      arn.inserir(40);
-      arn.inserir(50);
-      arn.inserir(60);
-      arn.inserir(70);
-      arn.inserir(80);
-      arn.inserir(90);
-      arn.inserir(75);
-      arn.inserir(100);
-      arn.inserir(85);
-      arn.exibir();
-      arn.inserir(110);
-      
-      //arn.exibir();
-      //arn.remover(40);
-      arn.exibir();
+    try {
 
+      g.setAresta(0, "<>", 0);
+      g.setAresta(1, "<", 2);
+      g.setAresta(2, ">", 2);
+      g.removeVertice(c);
+      d = g.setVertice("d");
+      g.setAresta(2, "<>", 2);
+      g.removeVertice(d);
 
+    } catch (TableIndexException | JokerTypeNotFound e) {
+      e.printStackTrace();
+    }
 
+    g.showTable();
 
-      System.exit(0);
   }
 }
