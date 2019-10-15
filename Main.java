@@ -14,19 +14,20 @@ public class Main {
 
     try {
 
-      g.setAresta(0, "<>", 0);
-      g.setAresta(1, "<", 2);
-      g.setAresta(2, ">", 2);
-      g.removeVertice(c);
-      d = g.setVertice("d");
-      g.setAresta(2, "<>", 2);
-      g.removeVertice(d);
+      //g.setAresta(0, 0, false);
+      g.setAresta(0, 2, false);
+      g.setAresta(0, 1, true);
+      g.setAresta(2, 1, true);
 
-    } catch (TableIndexException | JokerTypeNotFound e) {
-      e.printStackTrace();
+    } catch (TableIndexException e) {
+      System.out.println(e.getMessage());
+      System.exit(1);
     }
 
     g.showTable();
+
+    System.out.println(a.toString());
+    System.out.println(c.toString());
 
   }
 }

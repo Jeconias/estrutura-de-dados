@@ -49,6 +49,7 @@ public class Vertice {
     }
 
     public Vertice setAresta(Aresta aresta) {
+        if(this.arestas.indexOf(aresta) != -1) return this;
         this.arestas.add(aresta);
         return this;
     }
@@ -65,6 +66,26 @@ public class Vertice {
 
     public Boolean removeAresta(Aresta aresta) {
         return this.arestas.remove(aresta);
+    }
+
+    public String toString() {
+        String str = String.format("\n### %s ###\nTargets: ", this.getKey());
+        
+        for(Vertice curr:this.targets) {
+            str += String.format("%s ", curr.getKey());
+        }
+
+        str += String.format("\nArrows: ");
+        for(Vertice curr:this.arrows) {
+            str += String.format("%s ", curr.getKey());
+        }
+
+        str += String.format("\nArestas: ");
+        for(Aresta curr:this.arestas) {
+            str += String.format("%s ", curr.getKey());
+        }
+
+        return str;
     }
 
 }

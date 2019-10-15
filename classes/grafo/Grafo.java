@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashMap;
 import exceptions.TableIndexException;
-import exceptions.JokerTypeNotFound;
 
 public class Grafo {
 
@@ -45,7 +44,7 @@ public class Grafo {
      * @return Grafo
      * @throws TableIndexException
      */
-    public Grafo setAresta(int row, String joker, int col) throws TableIndexException, JokerTypeNotFound {
+    public Grafo setAresta(int row, int col, boolean biDirection) throws TableIndexException {
         if (row >= this.size || col >= this.size || row < 0 || col < 0) {
             throw new TableIndexException("Coluna ou Linha maior que o limite da tabela");
         }
@@ -53,24 +52,13 @@ public class Grafo {
         Vertice a = this.vertices.get(String.format("v%d", row));
         Vertice b = this.vertices.get(String.format("v%d", col));
 
-        Aresta aresta = new Aresta(a, b);
+        Aresta aresta = new Aresta(a, b, biDirection);
         aresta.setKey(String.format("a%d", this.arestas.size()));
         this.arestas.put(aresta.getKey(), aresta);
 
-        switch (joker) {
-        case "<>":
-            aresta.addAnyDirection();
-            break;
-        case ">":
-            aresta.addOneDirection(a);
-            break;
-        case "<":
-            aresta.addOneDirection(b);
-            break;
-        default:
-            throw new JokerTypeNotFound("Joker não encontrado.");
+        if(biDirection == true){
+            this.container[col][row] = aresta;
         }
-
         this.container[row][col] = aresta;
         return this;
     }
@@ -82,6 +70,12 @@ public class Grafo {
         for (int i = 0; i < arestas.size(); i++) {
             arestas.get(i).removeFromVertices();
             // this.arestas.remove(arestas.get(i).getKey());
+        }
+
+        if ((this.size - 1) == 0) {
+            this.vertices.remove(vertice.getKey());
+            this.size = this.vertices.size();
+            return null;
         }
 
         Aresta[][] tempTable = new Aresta[(this.size - 1)][(this.size - 1)];
@@ -134,8 +128,7 @@ public class Grafo {
     }
 
     public Grafo showTable() {
-        String cols = "   ";
-        String rows = "";
+        String cols = "   ", rows = "", joker = "";
 
         for (int i = 0; i < this.size; i++) {
             cols += String.format(" V%d ", i);
@@ -143,9 +136,15 @@ public class Grafo {
 
             for (int j = 0; j < this.size; j++) {
                 if (this.container[i][j] == null) {
-                    rows += " x  ";
+                    rows += " x ";
                 } else {
-                    rows += String.format(" %s ", this.container[i][j].getJoker());
+                    joker = this.container[i][j].getJoker();
+                    if(joker.equals("^")){
+                        rows += String.format(" %s ", this.container[i][j].getJoker());
+                    }else{
+                        rows += String.format("%s ", this.container[i][j].getJoker());
+                    }
+                    
                 }
 
             }

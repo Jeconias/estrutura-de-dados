@@ -4,45 +4,42 @@ public class Aresta {
 
     private Vertice a = null;
     private Vertice b = null;
-    private String joker = "";
+    private Boolean biDirection;
+    private String joker = "^";
     private String key;
 
-    public Aresta(Vertice a, Vertice b) {
+    public Aresta(Vertice a, Vertice b, boolean biDirection) {
         this.a = a;
         this.b = b;
+        this.biDirection = biDirection;
         this.a.setAresta(this);
         this.b.setAresta(this);
+        this.start();
     }
 
     public String getJoker() {
         return this.joker;
     }
 
-    public Aresta addAnyDirection() {
-        this.joker = "<>";
-
-        this.a.setTarget(this.b);
-        this.a.setArrow(this.b);
-
-        this.b.setTarget(this.a);
-        this.b.setArrow(this.a);
+    public Aresta addAutoRef(String joker) {
+        this.joker = joker;
+        this.a.setTarget(a);
+        this.a.setArrow(a);
         return this;
     }
 
-    public Aresta addOneDirection(Vertice target) {
-        if (target == this.a) {
+    public Aresta addAnyDirection() {
+        this.a.setTarget(this.b);
+        this.b.setArrow(this.a);
 
-            this.joker = ">";
-            this.a.setTarget(this.b);
-            this.b.setArrow(this.a);
+        this.b.setTarget(this.a);
+        this.a.setArrow(this.b);
+        return this;
+    }
 
-        } else if (target == this.b) {
-
-            this.joker = "<";
-            this.b.setTarget(this.a);
-            this.a.setArrow(this.b);
-
-        }
+    public Aresta addOneDirection() {
+        this.a.setTarget(this.b);
+        this.b.setArrow(this.a);
         return this;
     }
 
@@ -58,6 +55,18 @@ public class Aresta {
 
     public String getKey() {
         return this.key;
+    }
+
+    private void start(){
+        if(this.a == this.b && this.biDirection == false){
+            this.addAutoRef("o");
+        }else if(this.a == this.b && this.biDirection == true){
+            this.addAutoRef("|o|");
+        }else if(this.a != this.b && this.biDirection == true) {
+            this.addAnyDirection();
+        }else{
+            this.addOneDirection();
+        }
     }
 
 }
