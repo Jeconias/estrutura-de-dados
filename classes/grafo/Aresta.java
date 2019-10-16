@@ -17,6 +17,18 @@ public class Aresta {
         this.start();
     }
 
+    public Vertice getVerticeA() {
+        return this.a;
+    }
+
+    public Vertice getVerticeB() {
+        return this.b;
+    }
+
+    public Boolean isBiDirection() {
+        return this.biDirection;
+    }
+
     public String getJoker() {
         return this.joker;
     }
@@ -57,16 +69,24 @@ public class Aresta {
         return this.key;
     }
 
-    private void start(){
-        if(this.a == this.b && this.biDirection == false){
+    private void start() {
+        if (this.a == this.b && this.biDirection == false) {
             this.addAutoRef("o");
-        }else if(this.a == this.b && this.biDirection == true){
+        } else if (this.a == this.b && this.biDirection == true) {
             this.addAutoRef("|o|");
-        }else if(this.a != this.b && this.biDirection == true) {
+        } else if (this.a != this.b && this.biDirection == true) {
             this.addAnyDirection();
-        }else{
+        } else {
             this.addOneDirection();
         }
+    }
+
+    public String arestaToString() {
+        String str = String.format("\n### %s ###\n%s %s %s", this.key, this.a.getKey(), this.joker, this.b.getKey());
+        if (this.biDirection) {
+            return String.format("%s\n%s %s %s", str, this.b.getKey(), this.joker, this.a.getKey());
+        }
+        return str;
     }
 
 }

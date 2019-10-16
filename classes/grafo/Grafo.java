@@ -41,10 +41,10 @@ public class Grafo {
      * 
      * @param row Vertice da linha
      * @param col Vertice da coluna
-     * @return Grafo
+     * @return Aresta
      * @throws TableIndexException
      */
-    public Grafo setAresta(int row, int col, boolean biDirection) throws TableIndexException {
+    public Aresta setAresta(int row, int col, boolean biDirection) throws TableIndexException {
         if (row >= this.size || col >= this.size || row < 0 || col < 0) {
             throw new TableIndexException("Coluna ou Linha maior que o limite da tabela");
         }
@@ -56,21 +56,21 @@ public class Grafo {
         aresta.setKey(String.format("a%d", this.arestas.size()));
         this.arestas.put(aresta.getKey(), aresta);
 
-        if(biDirection == true){
+        if (biDirection == true) {
             this.container[col][row] = aresta;
         }
         this.container[row][col] = aresta;
-        return this;
+        return aresta;
     }
 
     public Object removeVertice(Vertice vertice) {
         Object tmp = vertice.getValue();
         ArrayList<Aresta> arestas = vertice.getArestas();
 
-        for (int i = 0; i < arestas.size(); i++) {
-            arestas.get(i).removeFromVertices();
-            // this.arestas.remove(arestas.get(i).getKey());
-        }
+        arestas.forEach((a) -> {
+            this.arestas.remove(a.getKey());
+            a.removeFromVertices();
+        });
 
         if ((this.size - 1) == 0) {
             this.vertices.remove(vertice.getKey());
@@ -99,8 +99,21 @@ public class Grafo {
         return tmp;
     }
 
+    public ArrayList<Vertice> removeAresta(Aresta arst) {
+        ArrayList<Vertice> vsrts = new ArrayList<Vertice>();
+        vsrts.add(arst.getVerticeA());
+        vsrts.add(arst.getVerticeB());
+
+        int row = Integer.parseInt(arst.getVerticeA().getKey().substring(1, 2));
+        int col = Integer.parseInt(arst.getVerticeB().getKey().substring(1, 2));
+        this.container[row][col] = null;
+        this.arestas.remove(arst.getKey());
+        arst.removeFromVertices();
+        return vsrts;
+    }
+
     /**
-     * Retorna os vertices final da aresta.
+     * Retorna os vertices finais da aresta.
      * 
      * @param a
      * @return
@@ -108,7 +121,24 @@ public class Grafo {
      * @TODO
      */
     public ArrayList<Vertice> finalVertices(Aresta a) {
-        return new ArrayList<Vertice>();
+        ArrayList<Vertice> vFinals = new ArrayList<Vertice>();
+        vFinals.add(a.getVerticeB());
+        return vFinals;
+    }
+
+    /**
+     * Retorna true se a e a são adjacentes
+     * 
+     * @param a
+     * @param b
+     * @return boolean
+     */
+    public boolean isAdjacent(Vertice a, Vertice b) {
+        for (Aresta arst : a.getArestas()) {
+            if (b.getArestas().indexOf(arst) != -1)
+                return true;
+        }
+        return false;
     }
 
     /**
@@ -127,6 +157,10 @@ public class Grafo {
         return this.size;
     }
 
+    public boolean isBiDirection(Aresta a) {
+        return a.isBiDirection();
+    }
+
     public Grafo showTable() {
         String cols = "   ", rows = "", joker = "";
 
@@ -139,12 +173,12 @@ public class Grafo {
                     rows += " x ";
                 } else {
                     joker = this.container[i][j].getJoker();
-                    if(joker.equals("^")){
+                    if (joker.equals("^") || joker.equals("o")) {
                         rows += String.format(" %s ", this.container[i][j].getJoker());
-                    }else{
+                    } else {
                         rows += String.format("%s ", this.container[i][j].getJoker());
                     }
-                    
+
                 }
 
             }
@@ -154,6 +188,14 @@ public class Grafo {
         System.out.print(String.format("%s\n%s", cols, rows));
 
         return this;
+    }
+
+    public String arestasToString() {
+        String str = "";
+        for (Map.Entry<String, Aresta> aresta : this.arestas.entrySet()) {
+            str += String.format("%s\n", aresta.getValue().arestaToString());
+        }
+        return str;
     }
 
 }

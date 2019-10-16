@@ -6,6 +6,7 @@ public class Main {
 
   public static void main(String args[]) {
 
+    Aresta aa = null;
     Vertice a, b, c, d;
     Grafo g = new Grafo();
     a = g.setVertice("a");
@@ -14,10 +15,16 @@ public class Main {
 
     try {
 
+      aa = g.setAresta(1, 2, false);
       // g.setAresta(0, 0, false);
-      g.setAresta(0, 2, false);
-      g.setAresta(0, 1, true);
-      g.setAresta(2, 1, true);
+      // g.setAresta(2, 1, true);
+      // g.setAresta(1, 2, false);
+
+      g.showTable();
+      System.out.println();
+      // g.removeVertice(a);
+      // g.removeVertice(b);
+      g.removeAresta(aa);
 
     } catch (TableIndexException e) {
       System.out.println(e.getMessage());
@@ -26,8 +33,9 @@ public class Main {
 
     g.showTable();
 
-    System.out.println(a.toString());
-    System.out.println(c.toString());
+    // System.out.println(a.toString());
+    // System.out.println(b.toString());
+    System.out.println(g.arestasToString());
 
   }
 }
