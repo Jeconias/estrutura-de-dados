@@ -165,8 +165,8 @@ public class Grafo {
         String cols = "   ", rows = "", joker = "";
 
         for (int i = 0; i < this.size; i++) {
-            cols += String.format(" V%d ", i);
-            rows += String.format(" V%d ", i);
+            cols += String.format(" V%d", i);
+            rows += String.format(" V%d", i);
 
             for (int j = 0; j < this.size; j++) {
                 if (this.container[i][j] == null) {
