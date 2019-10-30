@@ -127,7 +127,7 @@ public class Grafo {
     }
 
     /**
-     * Retorna true se a e a são adjacentes
+     * Retorna true se a e b são adjacentes
      * 
      * @param a
      * @param b
@@ -159,6 +159,31 @@ public class Grafo {
 
     public boolean isBiDirection(Aresta a) {
         return a.isBiDirection();
+    }
+
+    public String dfs(String key) {
+        key = String.format("v%s", key);
+        if (!this.vertices.containsKey(key)) {
+            // TODO(Jeconias): Adicionar exceção
+            return "Vertice não existe";
+        }
+        return this.depthFirstSearch(key);
+    }
+
+    private String depthFirstSearch(String key) {
+        String r = "";
+        Vertice current = this.vertices.get(key);
+        current.setIsVisited(true);
+        r += String.format("%s ", current.getKey());
+
+        for (Map.Entry<String, Vertice> v : this.vertices.entrySet()) {
+            if (this.isAdjacent(current, v.getValue())) {
+                if (!v.getValue().isVisited()) {
+                    r += this.depthFirstSearch(v.getKey());
+                }
+            }
+        }
+        return r;
     }
 
     public Grafo showTable() {

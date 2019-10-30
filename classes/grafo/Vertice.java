@@ -7,6 +7,7 @@ public class Vertice {
 
     Object value = null;
     String key;
+    Boolean isVisited = false;
 
     /**
      * Meu alvos / Para aonde eu posso ir
@@ -62,6 +63,10 @@ public class Vertice {
         return this;
     }
 
+    public ArrayList<Vertice> getTargets() {
+        return this.targets;
+    }
+
     public Vertice setArrow(Vertice v) {
         this.arrows.add(v);
         return this;
@@ -69,6 +74,14 @@ public class Vertice {
 
     public Boolean removeAresta(Aresta aresta) {
         return this.arestas.remove(aresta);
+    }
+
+    public boolean isVisited() {
+        return this.isVisited;
+    }
+
+    public void setIsVisited(boolean v) {
+        this.isVisited = v;
     }
 
     public String toString() {
