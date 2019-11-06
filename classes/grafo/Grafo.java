@@ -141,6 +141,14 @@ public class Grafo {
         return false;
     }
 
+    private Aresta arestaCommun(Vertice a, Vertice b) {
+        for (Aresta arst : a.getArestas()) {
+            if (b.getArestas().indexOf(arst) != -1)
+                return arst;
+        }
+        return null;
+    }
+
     /**
      * Substitui o elemento armazenado no vértice a por b
      * 
@@ -161,29 +169,128 @@ public class Grafo {
         return a.isBiDirection();
     }
 
-    public String dfs(String key) {
+    public void carteiroChines() {
+
+        if (this.isEule()) {
+            // aplicar algoritmo de Fleury
+
+        } else {
+            // aplicar o algoritmo de carteiro chinês
+            int f = 0, g, s, n = this.container.length;
+
+            ArrayList<Vertice> vImpares = new ArrayList<Vertice>();
+            while (f < n) {
+                g = 0;
+                for (int i = 0; i < n; i++) {
+                    g += this.container[f][i] != null ? 1 : 0;
+                }
+                if ((g % 2) == 1) {
+                    vImpares.add(this.vertices.get(String.format("v%s", f)));
+                }
+                f++;
+            }
+            s = vImpares.size();
+            String[][] mDistancia = new String[s][s + 1];
+            for (int i = 0; i < s; i++) {
+                mDistancia[i][0] = vImpares.get(i).getKey();
+            }
+
+            int menor = 10000;
+            String tmp = "";
+            for (int i = 0; i < s; i++) {
+                Vertice v1 = this.vertices.get(mDistancia[i][0]);
+                for (int j = 0; j < s; j++) {
+                    Vertice v2 = this.vertices.get(mDistancia[i][0]);
+                    Aresta a = this.arestaCommun(v1, v2);
+                    mDistancia[i][j + 1] = String.format("%s|%s", String.valueOf(a.getPeso()), v1.getKey());
+
+                    if (menor > a.getPeso()) {
+                        menor = a.getPeso();
+                        tmp = mDistancia[i][j + 1];
+                    }
+                }
+
+            }
+
+            for (int i = 0; i < s; i++) {
+                for (int j = 0; j <= s; j++) {
+                    System.out.print(mDistancia[i][j] + " ");
+                }
+                System.out.println();
+            }
+
+        }
+    }
+
+    public void dijkstra(Vertice[][] matrix) {
+        int d, t, size = matrix.length;
+        Vertice[] s = new Vertice[size];
+
+        s[0] = matrix[0][0];
+        while (s.length != size) {
+            t = s.length;
+            d = 0;
+            for (int i = 0; i < t; i++) {
+                for (int k = 0; k < size; k++) {
+
+                }
+            }
+        }
+
+    }
+
+    // Verificar se existe um caminho euleriano / Fleury
+    public boolean isEule() {
+        int grau = 0, soma = 0, f = 0, n = this.container.length;
+
+        while (soma <= 2 && f < n) {
+            grau = 0;
+            for (int i = 0; i < n; i++) {
+                grau += this.container[f][i] != null ? 1 : 0;
+            }
+            if ((grau % 2) == 1) {
+                soma++;
+            }
+            f++;
+        }
+        if (soma > 2)
+            return false;
+        return true;
+    }
+
+    public boolean isBridge(Vertice f, Vertice t) {
+        if (!this.isAdjacent(f, t))
+            return false;
+        int tDps = this.dfs(f.getKey());
+        this.removeAresta(this.arestaCommun(f, t));
+        if (tDps != this.dfs(f.getKey()))
+            return true;
+        return false;
+    }
+
+    public int dfs(String key) {
         key = String.format("v%s", key);
         if (!this.vertices.containsKey(key)) {
             // TODO(Jeconias): Adicionar exceção
-            return "Vertice não existe";
+            System.out.println("Vertice não existe");
+            return -1;
         }
         return this.depthFirstSearch(key);
     }
 
-    private String depthFirstSearch(String key) {
-        String r = "";
+    private int depthFirstSearch(String key) {
+        int t = 1;
         Vertice current = this.vertices.get(key);
         current.setIsVisited(true);
-        r += String.format("%s ", current.getKey());
 
         for (Map.Entry<String, Vertice> v : this.vertices.entrySet()) {
             if (this.isAdjacent(current, v.getValue())) {
                 if (!v.getValue().isVisited()) {
-                    r += this.depthFirstSearch(v.getKey());
+                    t += this.depthFirstSearch(v.getKey());
                 }
             }
         }
-        return r;
+        return t;
     }
 
     public Grafo showTable() {

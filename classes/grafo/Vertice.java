@@ -84,6 +84,10 @@ public class Vertice {
         this.isVisited = v;
     }
 
+    public int getTotalAresta() {
+        return (this.arrows.size() + this.targets.size());
+    }
+
     public String toString() {
         String str = String.format("\n### %s ###\nTargets: ", this.getKey());
 

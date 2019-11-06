@@ -7,6 +7,7 @@ public class Aresta {
     private Boolean biDirection;
     private String joker = "^";
     private String key;
+    private int peso = 0;
 
     public Aresta(Vertice a, Vertice b, boolean biDirection) {
         this.a = a;
@@ -63,6 +64,15 @@ public class Aresta {
     public Aresta setKey(String key) {
         this.key = key;
         return this;
+    }
+
+    public Aresta setPeso(int v) {
+        this.peso = v;
+        return this;
+    }
+
+    public int getPeso() {
+        return this.peso;
     }
 
     public String getKey() {
