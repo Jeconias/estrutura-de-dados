@@ -5,46 +5,43 @@ public class Main {
 
   public static void main(String args[]) {
 
-    Aresta aa = null;
-    Vertice a, b, c, d, e;
     Grafo g = new Grafo();
-    a = g.setVertice("a");
-    b = g.setVertice("b");
-    c = g.setVertice("c");
-    d = g.setVertice("d");
-    e = g.setVertice("e");
+    Vertice a, b, c, d, e, f;
+    a = g.newVertice("0");
+    b = g.newVertice("1");
+    c = g.newVertice("2");
+    d = g.newVertice("3");
+
+    g.setVertices(a, b, c, d);
+
+    /**
+     * v1 v2 v3 v4 v5 v1 0 1 1 1 0 v2 1 0 0 0 1 v3 1 0 0 1 0 v4 1 0 1 0 1 v5 0 1 0 1
+     * 0
+     */
 
     try {
 
-      g.setAresta(0, 1, false).setPeso(2);
-      g.setAresta(0, 2, false).setPeso(3);
-      g.setAresta(0, 3, false).setPeso(6);
+      g.setAresta(0, 1, false).setCusto(10);
+      g.setAresta(1, 2, false).setCusto(5);
+      g.setAresta(2, 3, false).setCusto(1);
+      g.setAresta(3, 0, false).setCusto(3);
 
-      g.setAresta(1, 4, false).setPeso(1);
-      g.setAresta(1, 0, false).setPeso(4);
-
-      g.setAresta(2, 0, false).setPeso(0);
-      g.setAresta(2, 3, false).setPeso(4);
-
-      g.setAresta(3, 0, false).setPeso(8);
-      g.setAresta(3, 2, false).setPeso(9);
-      g.setAresta(3, 4, false).setPeso(4);
-
-      g.setAresta(4, 1, false).setPeso(1);
-      g.setAresta(4, 3, false).setPeso(2);
-      g.setAresta(4, 2, false).setPeso(3);
-
-      System.out.println(g.isEule());
-
-    } catch (TableIndexException err) {
-      System.out.println(err.getMessage());
-      System.exit(1);
+      // System.out.println(g.isAdjacent(c, b));
+    } catch (TableIndexException x) {
+      System.out.println(x.getMessage());
     }
 
-    // System.out.println(g.dfs("2"));
-    // System.out.println();
+    g.showGrafo(false);
+    // System.out.println(g.isEule());
+
+    g.vImpares().forEach((v) -> {
+      // System.out.println(v.getElement());
+    });
+
     g.carteiroChines();
-    // g.showTable();
+
+    // g.removeVertice(c);
+    // g.showGrafo(false);
 
   }
 }

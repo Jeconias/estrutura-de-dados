@@ -1,54 +1,24 @@
 package classes.grafo;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Vertice {
 
-    Object value = null;
-    String key;
-    Boolean isVisited = false;
-
-    /**
-     * Meu alvos / Para aonde eu posso ir
-     */
-    private ArrayList<Vertice> targets = new ArrayList<Vertice>();
-
-    /**
-     * Sou alvo / Quem pode chegar até mim
-     */
-    private ArrayList<Vertice> arrows = new ArrayList<Vertice>();
-
-    /**
-     * Arestas que o Vertice possui
-     */
     private ArrayList<Aresta> arestas = new ArrayList<Aresta>();
+    private Dijkstra dijkstra = new Dijkstra();
+    private Object element;
+    private Boolean isVisited = false;
 
-    public Vertice(Object v) {
-        this.value = v;
+    public Vertice(Object o) {
+        this.element = o;
     }
 
-    public Object getValue() {
-        return this.value;
-    }
-
-    public Vertice setValue(Object v) {
-        this.value = v;
-        return this;
-    }
-
-    public String getKey() {
-        return this.key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
+    public Dijkstra getDijkstra() {
+        return this.dijkstra;
     }
 
     public ArrayList<Aresta> getArestas() {
-        ArrayList<Aresta> clones = new ArrayList<Aresta>();
-        this.arestas.forEach(a -> clones.add(a));
-        return clones;
+        return this.arestas;
     }
 
     public Vertice setAresta(Aresta aresta) {
@@ -58,18 +28,12 @@ public class Vertice {
         return this;
     }
 
-    public Vertice setTarget(Vertice v) {
-        this.targets.add(v);
-        return this;
+    public Object getElement() {
+        return this.element;
     }
 
-    public ArrayList<Vertice> getTargets() {
-        return this.targets;
-    }
-
-    public Vertice setArrow(Vertice v) {
-        this.arrows.add(v);
-        return this;
+    public void setElement(Object element) {
+        this.element = element;
     }
 
     public Boolean removeAresta(Aresta aresta) {
@@ -82,30 +46,6 @@ public class Vertice {
 
     public void setIsVisited(boolean v) {
         this.isVisited = v;
-    }
-
-    public int getTotalAresta() {
-        return (this.arrows.size() + this.targets.size());
-    }
-
-    public String toString() {
-        String str = String.format("\n### %s ###\nTargets: ", this.getKey());
-
-        for (Vertice curr : this.targets) {
-            str += String.format("%s ", curr.getKey());
-        }
-
-        str += String.format("\nArrows: ");
-        for (Vertice curr : this.arrows) {
-            str += String.format("%s ", curr.getKey());
-        }
-
-        str += String.format("\nArestas: ");
-        for (Aresta curr : this.arestas) {
-            str += String.format("%s ", curr.getKey());
-        }
-
-        return str;
     }
 
 }
