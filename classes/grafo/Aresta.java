@@ -7,6 +7,7 @@ public class Aresta {
     private Boolean biDirection;
     private Object custo;
     private String key;
+    private Boolean open = true;
 
     public Aresta(Vertice a, Vertice b, boolean biDirection) {
         this.a = a;
@@ -73,6 +74,14 @@ public class Aresta {
 
     public Vertice getInverseVertice(Vertice v) {
         return this.a == v ? this.b : this.a;
+    }
+
+    public Boolean isOpen() {
+        return this.open;
+    }
+
+    public void setOpen(Boolean open) {
+        this.open = open;
     }
 
 }

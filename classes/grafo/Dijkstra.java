@@ -1,26 +1,15 @@
 package classes.grafo;
 
 public class Dijkstra {
-    private boolean isOpen = true;
     private Vertice from = null;
     private Object custo = Integer.MAX_VALUE;
 
     public Dijkstra() {
     }
 
-    public Dijkstra(boolean isOpen, Vertice from, Object custo) {
-        this.isOpen = isOpen;
+    public Dijkstra(Vertice from, Object custo) {
         this.from = from;
         this.custo = custo;
-    }
-
-    public boolean getIsOpen() {
-        return this.isOpen;
-    }
-
-    public Dijkstra setIsOpen(boolean isOpen) {
-        this.isOpen = isOpen;
-        return this;
     }
 
     public Vertice getFrom() {

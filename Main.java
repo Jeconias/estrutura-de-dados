@@ -11,8 +11,9 @@ public class Main {
     b = g.newVertice("1");
     c = g.newVertice("2");
     d = g.newVertice("3");
+    e = g.newVertice("4");
 
-    g.setVertices(a, b, c, d);
+    g.setVertices(a, b, c, d, e);
 
     /**
      * v1 v2 v3 v4 v5 v1 0 1 1 1 0 v2 1 0 0 0 1 v3 1 0 0 1 0 v4 1 0 1 0 1 v5 0 1 0 1
@@ -21,10 +22,12 @@ public class Main {
 
     try {
 
-      g.setAresta(0, 1, false).setCusto(10);
-      g.setAresta(1, 2, false).setCusto(5);
-      g.setAresta(2, 3, false).setCusto(1);
-      g.setAresta(3, 0, false).setCusto(3);
+      g.setAresta(0, 1, true).setCusto(10);
+      g.setAresta(0, 2, true).setCusto(5);
+      g.setAresta(0, 4, true).setCusto(1);
+      g.setAresta(1, 3, true).setCusto(5);
+      g.setAresta(2, 3, true).setCusto(15);
+      g.setAresta(4, 3, true).setCusto(3);
 
       // System.out.println(g.isAdjacent(c, b));
     } catch (TableIndexException x) {

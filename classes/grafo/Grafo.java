@@ -106,7 +106,7 @@ public class Grafo {
 
     public void carteiroChines() {
         ArrayList<Vertice> vImpares = this.vImpares();
-        this.dijkstra(vImpares);
+        this.dijkstra(vImpares, 0);
 
         for (int i = 0; i < vImpares.size(); i++) {
             for (int j = 0; j < (vImpares.size() + 1); j++) {
@@ -116,32 +116,48 @@ public class Grafo {
 
     }
 
-    public void dijkstra(ArrayList<Vertice> vertices) {
-        int vI = vertices.size();
-        int countVertice = 0;
-        Vertice init = vertices.get(0);
-        Vertice tmp = new Vertice(-1);
+    public void dijkstra(ArrayList<Vertice> vertices, int startVertice) {
+        Vertice init = this.vertices.get(startVertice);
         init.getDijkstra().setCusto(0);
-        while (countVertice != vI) {
+
+        while (this.totalArestaOpen() != 0) {
+            ArrayList<Vertice> tmps = new ArrayList<Vertice>();
 
             for (int i = 0; i < init.getArestas().size(); i++) {
-                Aresta a = init.getArestas().get(i);
-                int total = ((int) init.getDijkstra().getCusto() + (int) a.getCusto());
-                if (total < (int) tmp.getDijkstra().getCusto()) {
-                    tmp = a.getInverseVertice(init);
-                }
 
-                if (total < (int) a.getInverseVertice(init).getDijkstra().getCusto()) {
-                    a.getInverseVertice(init).getDijkstra().setCusto(total).setFrom(init);
+                if (init.getArestas().get(i).isOpen() == false)
+                    continue;
+                Aresta arestaAtual = init.getArestas().get(i);
+                int total = ((int) init.getDijkstra().getCusto() + (int) arestaAtual.getCusto());
+
+                if (total < (int) arestaAtual.getInverseVertice(init).getDijkstra().getCusto()) {
+                    arestaAtual.getInverseVertice(init).getDijkstra().setCusto(total).setFrom(init);
                 }
-                System.out.print(tmp.getElement());
+                init.getArestas().get(i).setOpen(false);
+                tmps.add(arestaAtual.getInverseVertice(init));
             }
-            init = tmp;
-            countVertice++;
+
+            init = tmps.get(0);
+            for (int i = 0; i < tmps.size(); i++) {
+                if ((int) tmps.get(i).getDijkstra().getCusto() < (int) init.getDijkstra().getCusto()) {
+                    init = tmps.get(i);
+                }
+            }
         }
 
-        // System.out.println(init.getElement());
+        this.vertices.forEach((v) -> {
+            System.out.println(String.format("### Menor caminho: v%d -> v%s = %d", startVertice, v.getElement(),
+                    v.getDijkstra().getCusto()));
+        });
+    }
 
+    private int totalArestaOpen() {
+        int count = 0;
+        for (int i = 0; i < this.arestas.size(); i++) {
+            if (this.arestas.get(i).isOpen() == true)
+                count++;
+        }
+        return count;
     }
 
     public ArrayList<Vertice> vImpares() {

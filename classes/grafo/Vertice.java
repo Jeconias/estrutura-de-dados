@@ -48,4 +48,14 @@ public class Vertice {
         this.isVisited = v;
     }
 
+    public int totalArestaOpen() {
+        int count = 0;
+        for (int i = 0; i < this.arestas.size(); i++) {
+            if (this.arestas.get(i).isOpen() == true) {
+                count++;
+            }
+        }
+        return count;
+    }
+
 }
